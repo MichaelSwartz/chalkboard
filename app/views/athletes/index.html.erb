@@ -1,0 +1,29 @@
+<h1>All Athletes</h1>
+
+<%= link_to "Add Athlete", new_athlete_path  %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Birth Year</th>
+      <th>Gender</th>
+      <th>Team</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @athletes.each do |athlete| %>
+      <tr>
+        <td><%= link_to athlete.name, athlete_path(athlete) %></td>
+        <td><%= athlete.date_of_birth.year %></td>
+        <td><%= athlete.gender %></td>
+        <td><%= athlete.team %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<ul>
+
+</ul>
