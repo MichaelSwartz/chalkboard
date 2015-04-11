@@ -1,19 +1,19 @@
 <div>
   <%= form_for @athlete do |f| %>
-    <%= f.label :first_name %>
+    <%= f.label :first_name, 'First Name'%>
     <%= f.text_field :first_name %>
 
-    <%= f.label :last_name %>
+    <%= f.label :last_name, 'Last Name' %>
     <%= f.text_field :last_name %>
 
-    <%= f.label :date_of_birth %>
+    <%= f.label :date_of_birth, 'Date of Birth' %>
     <%= f.date_field :date_of_birth %>
 
     <%= f.label :gender %>
-    <%= f.select :gender, ["Female", "Male", "Other"] %>
+    <%= f.select :gender, ["Female", "Male", "Other"], include_blank: true %>
 
     <%= f.label :team %>
-    <%= f.text_area :team %>
+    <%= f.text_field :team %>
 
     <%= f.submit "Add Athlete" %>
   <% end %>
