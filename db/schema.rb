@@ -11,17 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405015316) do
+ActiveRecord::Schema.define(version: 20150411172302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "athletes", force: :cascade do |t|
-    t.string "first_name",    null: false
-    t.string "last_name",     null: false
-    t.date   "date_of_birth", null: false
-    t.string "gender",        null: false
-    t.string "team"
+    t.string   "first_name",    null: false
+    t.string   "last_name",     null: false
+    t.date     "date_of_birth", null: false
+    t.string   "gender",        null: false
+    t.string   "team"
+    t.string   "id_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "competitions", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "gender"
+    t.string   "division"
+    t.integer  "user_id",    null: false
+    t.date     "start_date", null: false
+    t.date     "end_date"
+    t.string   "gym"
+    t.string   "city"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.string  "name",           null: false
+    t.integer "number",         null: false
+    t.integer "competition_id", null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.integer  "round_id",     null: false
+    t.integer  "scored_holds", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|

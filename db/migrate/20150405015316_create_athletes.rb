@@ -6,6 +6,9 @@ class CreateAthletes < ActiveRecord::Migration
       t.date :date_of_birth, null: false
       t.string :gender, null: false
       t.string :team
+      t.string :id_number
+
+      t.timestamps
     end
   end
 end
