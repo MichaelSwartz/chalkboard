@@ -1,0 +1,19 @@
+<h2><%= @competition.name %></h2>
+<%= @competition.gender %>  <%= @competition.division %><br>
+Host Gym: <%= @competition.gym %>,
+<%= @competition.start_date %> - <%= @competition.end_date %>
+<%= @competition.city %> <%= @competition.state %>
+
+<br>
+<% if current_user == @competition.user %>
+  <%= link_to "Add Round", new_competition_round_path(@competition), class: "button tiny" %>
+  <%= link_to "Edit Competition", edit_competition_path(@competition), class: "button tiny" %>
+<% end %>
+
+<ul>
+  <% @competition.rounds.each do |round| %>
+    <li>
+      <%= link_to round.name, round_path(round) %>
+    </li>
+  <% end %>
+</ul>

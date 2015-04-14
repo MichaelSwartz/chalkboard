@@ -37,7 +37,7 @@ class AthletesController < ApplicationController
       flash[:notice] = 'Athlete updated'
       redirect_to athletes_path
     else
-      flash[:alert] = @athlete.errors.full_messages.join(", ")
+      flash[:alert] = @athlete.errors.full_messages.join(". ")
       render :edit
     end
   end
@@ -47,9 +47,9 @@ class AthletesController < ApplicationController
 
     if @athlete.destroy
       flash[:notice] = "Athlete deleted"
-      redirect_to atheletes_path
+      redirect_to athletes_path
     else
-      flash[:notice] = @athlete.errors.full_messages.join(", ")
+      flash[:notice] = @athlete.errors.full_messages.join(". ")
       render :show
     end
   end

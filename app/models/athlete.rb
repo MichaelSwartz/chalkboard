@@ -1,4 +1,7 @@
 class Athlete < ActiveRecord::Base
+  has_many :attempts
+  has_many :routes, through: :attempts
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :gender, presence: true

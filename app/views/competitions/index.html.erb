@@ -1,0 +1,30 @@
+<h1>All Competitions</h1>
+
+<%= link_to "Create New Competition", new_competition_path  %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Division</th>
+      <th>Gym</th>
+      <th>City</th>
+      <th>State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @competitions.each do |competition| %>
+      <tr>
+        <td><%= competition.start_date %></td>
+        <td><%= link_to competition.name, competition_path(competition) %></td>
+        <td><%= competition.gender %></td>
+        <td><%= competition.division %></td>
+        <td><%= competition.gym %></td>
+        <td><%= competition.city %></td>
+        <td><%= competition.state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

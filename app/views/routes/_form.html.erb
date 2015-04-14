@@ -1,0 +1,12 @@
+<div>
+  <%= form_for [@round, @route] do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :scored_holds, "Scored Holds" %>
+    <%= f.number_field :scored_holds %>
+
+    <%= f.submit (f.object.new_record? ? "Create Round" :
+      "Update Round"), class: "button tiny success" %>
+  <% end %>
+</div>

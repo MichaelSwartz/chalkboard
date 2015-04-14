@@ -1,0 +1,17 @@
+<h2><%= @competition.name %> - <%= @round.name %> (Round <%= @round.number %>)
+</h2>
+<%= @competition.gender %>  <%= @competition.division %><br>
+
+<br>
+<% if current_user == @competition.user %>
+  <%= link_to "Add Route", new_round_route_path(@round), class: "button tiny" %>
+  <%= link_to "Edit Round", edit_round_path(@round), class: "button tiny" %>
+<% end %>
+
+<ul>
+  <% @round.routes.each do |route| %>
+    <li>
+      <%= link_to route.name, route_path(route) %>
+    </li>
+  <% end %>
+</ul>

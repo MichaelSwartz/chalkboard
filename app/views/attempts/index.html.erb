@@ -1,0 +1,24 @@
+<h2><%= @competition.name %> - <%= @round.name %> (Round <%= @round.number %>)
+</h2>
+<%= @competition.gender %>  <%= @competition.division %><br>
+
+<h3>All attempts on route: <%= @route.name %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Athlete</th>
+      <th>Score</th>
+      <th>Attempt #</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attempts.each do |attempt| %>
+      <tr>
+        <td><%= attempt.athlete.name %></td>
+        <td><%= attempt.score %></td>
+        <td><%= attempt.number %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

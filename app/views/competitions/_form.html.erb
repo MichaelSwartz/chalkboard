@@ -1,0 +1,32 @@
+<div>
+  <%= form_for @competition do |f| %>
+    <%= f.label :name, 'Name*'%>
+    <%= f.text_field :name %>
+
+    <%= f.label :start_date, 'Start Date*' %>
+    <%= f.date_field :start_date %>
+
+    <%= f.label :end_date, 'End Date' %>
+    <%= f.date_field :end_date %>
+
+    <%= f.label :gender %>
+    <%= f.select :gender, ["Female", "Male", "Mixed"], include_blank: true %>
+
+    <%= f.label :division %>
+    <%= f.text_field :division %>
+
+    <%= f.label :gym, 'Host Gym' %>
+    <%= f.text_field :gym %>
+
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+
+    <%= f.label :state %>
+    <%= f.select :state, @STATES, include_blank: true %>
+
+    <%= f.submit (f.object.new_record? ? "Create Competition" :
+      "Update Competition"), class: "button tiny success" %>
+  <% end %>
+</div>
+
+<p>* Only name and start date are required. </p>
