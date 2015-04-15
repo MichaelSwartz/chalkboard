@@ -1,3 +1,8 @@
-<h2>Create New Route</h2>
+<h2>Create New Round</h2>
+
+<h3>
+  <%= link_to @competition.name, competition_path(@competition)  %>
+  <%= @competition.division %> - <%= @competition.gender %>
+</h3>
 
 <%= render 'form' %>

@@ -1,4 +1,5 @@
-<h2><%= @competition.name %> - <%= @round.name %> (Round <%= @round.number %>)
+<h2><%= link_to @competition.name, competition_path(@competition) %></h2>
+ - <%= @round.name %> (Round <%= @round.number %>)
 </h2>
 <%= @competition.gender %>  <%= @competition.division %><br>
 

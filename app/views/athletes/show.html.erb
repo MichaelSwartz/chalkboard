@@ -1,1 +1,20 @@
-<h3><%= "#{@athlete.first_name} #{@athlete.last_name}" %>
+<h3><%= "#{@athlete.first_name} #{@athlete.last_name}" %></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Competition</th>
+      <th>Date</th>
+      <th>Place #</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @competitions each do |comp| %>
+      <tr>
+        <td><%= comp.name %></td>
+        <td><%= comp.start_date %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

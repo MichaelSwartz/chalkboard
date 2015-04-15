@@ -8,6 +8,7 @@ class AthletesController < ApplicationController
 
   def show
     @athlete = Athlete.find(params[:id])
+    @competitions = @athlete.competitions
   end
 
   def new

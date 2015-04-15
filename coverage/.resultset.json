@@ -102,6 +102,10 @@
         1,
         1,
         null,
+        null,
+        1,
+        0,
+        null,
         null
       ],
       "/Users/MJS/Dropbox/projects/climbing_comps/app/controllers/competitions_controller.rb": [
@@ -319,6 +323,6 @@
         null
       ]
     },
-    "timestamp": 1429044011
+    "timestamp": 1429108369
   }
 }

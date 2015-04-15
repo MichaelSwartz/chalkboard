@@ -3,8 +3,8 @@ class Route < ActiveRecord::Base
   has_many :attempts
 
   validates :name, presence: true
+  validates :round, presence: true
   validates :scored_holds,
     presence: true,
     numericality: { only_integer: true }
-  validates :round, presence: true
 end

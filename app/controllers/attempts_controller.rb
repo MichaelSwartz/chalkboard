@@ -17,6 +17,7 @@ class AttemptsController < ApplicationController
   end
 
   def new
+    @athletes = Athlete.order(:last_name)
     @route = Route.find(params[:route_id])
     @attempt = Attempt.new
     @round = @route.round
@@ -24,6 +25,7 @@ class AttemptsController < ApplicationController
   end
 
   def create
+    @athletes = Athlete.order(:last_name)
     @route = Route.find(params[:route_id])
     @attempt = @route.attempts.new(attempt_params)
 
@@ -72,6 +74,6 @@ class AttemptsController < ApplicationController
 
   def attempt_params
     params.require(:attempt).permit(
-      :athlete_id, :route_id, :score, :number)
+      :athlete_id, :score, :number)
   end
 end

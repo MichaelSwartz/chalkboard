@@ -7,8 +7,8 @@ class Attempt < ActiveRecord::Base
   validates :score,
     presence: true,
     numericality: true
-  validates :score,
+  validates :number,
     presence: true,
     numericality: true,
-    uniqueness: { scope: [:athlete, :route] }     
+    uniqueness: { scope: [:athlete, :route] }
 end
