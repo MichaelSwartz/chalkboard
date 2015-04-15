@@ -22,7 +22,7 @@
     <%= f.text_field :city %>
 
     <%= f.label :state %>
-    <%= f.select :state, @STATES, include_blank: true %>
+    <%= f.select :state, @states, include_blank: true %>
 
     <%= f.submit (f.object.new_record? ? "Create Competition" :
       "Update Competition"), class: "button tiny success" %>
