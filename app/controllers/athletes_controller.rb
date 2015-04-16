@@ -1,7 +1,6 @@
 class AthletesController < ApplicationController
-  # before_action :authenticate_user!, only:
-  #   [:new, :create, :edit, :update, :destroy]
-  # before_action :authenticate_admin!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only:
+    [:new, :create, :edit, :update, :destroy]
 
   def index
     @athletes = Athlete.order(:last_name)
@@ -9,6 +8,7 @@ class AthletesController < ApplicationController
 
   def show
     @athlete = Athlete.find(params[:id])
+    @competitions = @athlete.competitions
   end
 
   def new
@@ -19,10 +19,10 @@ class AthletesController < ApplicationController
     @athlete = Athlete.new(athlete_params)
 
     if @athlete.save
-      flash[:notice] = 'Athlete added'
+      flash[:notice] = 'New athlete added'
       redirect_to athletes_path
     else
-      flash[:alert] = @athlete.errors.full_messages.join(", ")
+      flash[:alert] = @athlete.errors.full_messages.join(". ")
       render :new
     end
   end
@@ -38,7 +38,7 @@ class AthletesController < ApplicationController
       flash[:notice] = 'Athlete updated'
       redirect_to athletes_path
     else
-      flash[:alert] = @athlete.errors.full_messages.join(", ")
+      flash[:alert] = @athlete.errors.full_messages.join(". ")
       render :edit
     end
   end
@@ -48,9 +48,9 @@ class AthletesController < ApplicationController
 
     if @athlete.destroy
       flash[:notice] = "Athlete deleted"
-      redirect_to atheletes_path
+      redirect_to athletes_path
     else
-      flash[:notice] = @athlete.errors.full_messages.join(", ")
+      flash[:notice] = @athlete.errors.full_messages.join(". ")
       render :show
     end
   end

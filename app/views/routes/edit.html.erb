@@ -1,0 +1,14 @@
+<h2>Edit Route: <%= @route.name %><h2>
+<h3><%= @competition.division %><%= @competition.gender %></h3>
+
+<div>
+  <%= form_for @route do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :max_score, "Maximum Score" %>
+    <%= f.number_field :max_score, step: 0.01 %>
+
+    <%= f.submit "Update Route", class: "button tiny success" %>
+  <% end %>
+</div>

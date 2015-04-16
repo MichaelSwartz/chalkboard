@@ -1,0 +1,7 @@
+<h2>Edit <%= @athlete.name %><h2>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Delete Athlete", athlete_path(@athlete), method: :delete, data: { confirm: "Are you sure?" } %>
+</p>

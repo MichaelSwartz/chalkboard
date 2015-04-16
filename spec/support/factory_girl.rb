@@ -8,10 +8,10 @@ FactoryGirl.define do
   end
 
   factory :athlete do
-    sequence(:first_name) {|n| "#{n}first" }
-    sequence(:last_name) {|n| "#{n}last" }
-    date_of_birth "0#{rand(10)}/#{rand(10..27)}/#{rand(1980..2010)}"
-    gender ["male", "female"].sample
+    sequence(:first_name) { |n| "#{n}first" }
+    sequence(:last_name) { |n| "#{n}last" }
+    sequence(:date_of_birth) { |n| Date.new(1995, 11, 11) }
+    gender "female"
   end
 
   factory :round do
@@ -22,13 +22,13 @@ FactoryGirl.define do
 
   factory :route do
     sequence(:name) {|n| "Route #{n}" }
-    scored_holds rand(8..25)
+    sequence(:max_score) {|n| n + 8.25 }
     round
   end
 
   factory :competition do
     sequence(:name) {|n| "Comp #{n}" }
-    start_date "0#{rand(10)}/#{rand(10..27)}/#{[2016..2017].sample}"
+    start_date Date.new(2015, 12, 12)
     user
   end
 end

@@ -1,0 +1,35 @@
+<h2><%= @competition.name %> - <%= @round.name %> (Round <%= @round.number %>)
+</h2>
+<%= @competition.gender %>  <%= @competition.division %><br>
+
+<h3>All attempts on route: <%= link_to @route.name, route_path(@route) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Athlete</th>
+      <th>Score</th>
+      <th>Attempt #</th>
+      <% if current_user == @competition.user %>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attempts.each do |attempt| %>
+      <% if attempt.highpoint? %>
+        <tr class="highpoint">
+      <% else %>
+        <tr>
+      <% end %>
+          <td><%= attempt.athlete.name %></td>
+          <td><%= attempt.score %></td>
+          <td><%= attempt.number %></td>
+
+          <% if current_user == @competition.user %>
+            <td><%= link_to "Edit Attempt", edit_attempt_path(attempt) %></td>
+          <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

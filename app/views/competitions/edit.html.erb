@@ -1,0 +1,10 @@
+<h2>Edit <%= @competition.name %><h2>
+<h3><%= @competition.division %><%= @competition.gender %></h3>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Delete Competition", competition_path(@competition),
+    method: :delete,
+    data: { confirm: "This will delete competition permanently" } %>
+</p>

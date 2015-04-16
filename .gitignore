@@ -12,6 +12,7 @@
 !/log/.keep
 /tmp
 
+/unused_code.rb
 /coverage
 #Ignore environment variables
 .env

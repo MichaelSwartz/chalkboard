@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411172302) do
+ActiveRecord::Schema.define(version: 20150416200010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20150411172302) do
     t.string   "gender",        null: false
     t.string   "team"
     t.string   "id_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attempts", force: :cascade do |t|
+    t.integer  "athlete_id", null: false
+    t.integer  "route_id",   null: false
+    t.float    "score",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,13 +55,18 @@ ActiveRecord::Schema.define(version: 20150411172302) do
     t.integer "competition_id", null: false
   end
 
+  add_index "rounds", ["competition_id", "name"], name: "index_rounds_on_competition_id_and_name", unique: true, using: :btree
+  add_index "rounds", ["competition_id", "number"], name: "index_rounds_on_competition_id_and_number", unique: true, using: :btree
+
   create_table "routes", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.integer  "round_id",     null: false
-    t.integer  "scored_holds", null: false
+    t.string   "name",       null: false
+    t.integer  "round_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "max_score",  null: false
   end
+
+  add_index "routes", ["round_id", "name"], name: "index_routes_on_round_id_and_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

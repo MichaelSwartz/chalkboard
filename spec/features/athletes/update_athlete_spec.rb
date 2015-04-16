@@ -1,13 +1,14 @@
 require 'rails_helper'
 
-feature 'create athlete' do
+feature 'update athlete' do
   context 'as an authorized user' do
     let(:user) { FactoryGirl.create(:user) }
+    let(:athlete) { FactoryGirl.create(:athlete) }
 
-    scenario 'authorized user creates athlete' do
+    scenario 'authorized user updates athlete' do
       sign_in_as user
 
-      visit new_athlete_path
+      visit edit_athlete_path(athlete)
 
       fill_in "First Name", with: "FirstName"
       fill_in "Last Name", with: "LastName"
@@ -15,9 +16,9 @@ feature 'create athlete' do
       fill_in "Team", with: "DMC"
       select 'Male', from: "Gender"
 
-      click_on "Add Athlete"
+      click_on "Update Athlete"
 
-      expect(page).to have_content("New athlete added")
+      expect(page).to have_content("Athlete updated")
       expect(page).to have_content("FirstName")
       expect(page).to have_content("LastName")
       expect(page).to have_content("Male")
@@ -25,12 +26,17 @@ feature 'create athlete' do
       expect(page).to have_content("1990")
     end
 
-    scenario 'user fails to create athlete with insufficient information' do
+    scenario 'user fails to update athlete with insufficient information' do
       sign_in_as user
 
-      visit new_athlete_path
+      visit edit_athlete_path(athlete)
 
-      click_on "Add Athlete"
+      fill_in "First Name", with: ""
+      fill_in "Last Name", with: ""
+      fill_in "Date of Birth", with: ""
+      select '', from: "Gender"
+
+      click_on "Update Athlete"
 
       expect(page).to have_content("First name can't be blank")
       expect(page).to have_content("Last name can't be blank")
@@ -40,10 +46,12 @@ feature 'create athlete' do
   end
 
   context 'as a visitor user' do
-    scenario 'visitor fails to create athlete' do
-      visit athletes_path
+    let(:athlete) { FactoryGirl.create(:athlete) }
 
-      click_on "Add New Athlete"
+    scenario 'visitor fails to update athlete' do
+      visit athlete_path(athlete)
+
+      click_on "Edit Athlete Information"
 
       expect(page).to have_content("You need to sign in or sign up before continuing")
     end

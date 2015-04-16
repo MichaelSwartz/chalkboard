@@ -1,0 +1,18 @@
+<h2>Edit <%= @round.name %><h2>
+<h3>
+  <%= link_to @competition.name, competition_path(@competition)  %>
+  <%= @competition.division %><%= @competition.gender %>
+</h3>
+
+<div>
+  <%= form_for @round do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :number, "Round Number" %>
+    <%= f.number_field :number %>
+    <p>(In a two-round competition, qualifiers would be "1" and finals would be "2")
+
+    <%= f.submit "Update Round", class: "button tiny success" %>
+  <% end %>
+</div>

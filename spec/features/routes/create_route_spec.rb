@@ -1,39 +1,72 @@
 require 'rails_helper'
 
 feature 'create route' do
-  context 'as an authorized user' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:round) { FactoryGirl.create(:round) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:user2) { FactoryGirl.create(:user) }
+  let(:comp) { FactoryGirl.create(:competition, user: user) }
+  let(:round) { FactoryGirl.create(:round, competition: comp) }
 
+  context 'as an authorized user' do
     scenario 'authorized user creates route' do
       sign_in_as user
-
-      visit new_round_route_path
+      visit new_round_route_path(round)
 
       fill_in "Name", with: "Black 1"
-      fill_in "Round", with: "Black 1"
-      fill_in "DOB", with: "11/11/1990"
+      fill_in "Maximum Score", with: "50"
 
-      click_on "Add Route"
+      click_on "Create Route"
 
-      visit athletes_path
-      expect(page).to have_content("New Athlete Added")
-      expect(page).to have_content(last)
-      expect(page).to have_content(first)
+      expect(page).to have_content("New route created")
+      expect(page).to have_content("Black 1")
+    end
+
+    scenario 'user fails to create route with insufficient info' do
+      sign_in_as user
+      visit new_round_route_path(round)
+
+      click_on "Create Route"
+
+      expect(page).to have_content("Name can't be blank.")
+      expect(page).to have_content("Max score can't be blank.")
+    end
+
+    scenario 'user fails to create route with invalid input' do
+      sign_in_as user
+      visit new_round_route_path(round)
+
+      fill_in "Name", with: "Black 1"
+      fill_in "Maximum Score", with: "Black 50"
+
+      click_on "Create Route"
+
+      expect(page).to have_content("Max score is not a number")
     end
   end
 
-  scenario 'visitor fails to create athlete' do
+  context 'as a visitor user' do
+    scenario 'visitor fails to create route' do
+      visit round_path(round)
 
-    visit new_athlete_path
+      expect(page).to_not have_link("Add Route")
 
-    fill_in "First Name", with: "FirstName"
-    fill_in "Last Name", with: "LastName"
-    fill_in "DOB", with: "11/11/1990"
+      visit new_round_route_path(round)
 
-    click_on "Add Route"
-
-    expect(page).to have_content("You must sign in to add routes")
+      expect(page).to have_content("You need to sign in or sign up before continuing")
+      expect(page).to_not have_content("Add Route")
+    end
   end
-end
+
+  context 'as a non-owner user' do
+    scenario 'non-owner fails to create route' do
+      sign_in_as user2
+      visit round_path(round)
+
+      expect(page).to_not have_link("Add Route")
+
+      visit new_round_route_path(round)
+
+      expect(page).to have_content("Access restricted to competition creator")
+      expect(page).to_not have_link("Create Route")
+    end
+  end
 end
