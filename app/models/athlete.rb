@@ -16,4 +16,15 @@ class Athlete < ActiveRecord::Base
   def name_last_first
     "#{last_name}, #{first_name}"
   end
+
+  def highpoint(route)
+    self.attempts.order(score: :desc).where(route: route).take
+  end
+
+  def standing(route)
+    index = route.highpoints.rindex(highpoint(route))
+    index - ties + 1
+  end
+
+
 end

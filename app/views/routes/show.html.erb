@@ -10,6 +10,27 @@
   <%= link_to "Edit Route", edit_route_path(@route), class: "button tiny" %>
 <% end %>
 
+<table>
+  <thead>
+    <tr>
+      <th>Standing</th>
+      <th>Athlete</th>
+      <th>Route Score</th>
+      <th>Attempts to Highpoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @route.highpoints.each_with_index do |hp, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= link_to hp.athlete.name, athlete_path(hp.athlete) %></td>
+        <td><%= hp.score %></td>
+        <td><%= hp.number %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 
 <%= link_to "All Attempts", route_attempts_path(@route) %>

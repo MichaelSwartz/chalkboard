@@ -2,7 +2,7 @@
 </h2>
 <%= @competition.gender %>  <%= @competition.division %><br>
 
-<h3>All attempts on route: <%= @route.name %>
+<h3>All attempts on route: <%= link_to @route.name, route_path(@route) %>
 
 <table>
   <thead>
@@ -10,6 +10,7 @@
       <th>Athlete</th>
       <th>Score</th>
       <th>Attempt #</th>
+      <th>Highpoint?</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
         <td><%= attempt.athlete.name %></td>
         <td><%= attempt.score %></td>
         <td><%= attempt.number %></td>
+        <td><%= attempt.highpoint? %></td>
       </tr>
     <% end %>
   </tbody>

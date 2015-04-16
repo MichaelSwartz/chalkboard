@@ -6,7 +6,7 @@ class AttemptsController < ApplicationController
     @route = Route.find(params[:route_id])
     @round = @route.round
     @competition = @round.competition
-    @attempts = @route.attempts
+    @attempts = @route.attempts.order(:created_at)
   end
 
   def show
@@ -74,6 +74,6 @@ class AttemptsController < ApplicationController
 
   def attempt_params
     params.require(:attempt).permit(
-      :athlete_id, :score, :number)
+      :athlete_id, :score)
   end
 end

@@ -1,13 +1,10 @@
 <div>
   <%= form_for [@route, @attempt] do |f| %>
-    <%= f.label :athlete, "Athlete" %>
-    <%= f.collection_select :athlete, @athletes, :id, :name_last_first %>
+    <%= f.label :athlete_id, "Athlete" %>
+    <%= f.collection_select :athlete_id, @athletes, :id, :name_last_first %>
 
     <%= f.label :score %>
     <%= f.number_field :score, step: 0.01 %>
-
-    <%= f.label :number, "Attempt Number" %>
-    <%= f.number_field :number %>
 
     <%= f.submit (f.object.new_record? ? "Record Attempt" :
       "Edit Attempt"), class: "button tiny success" %>
