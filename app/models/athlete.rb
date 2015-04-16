@@ -18,6 +18,6 @@ class Athlete < ActiveRecord::Base
   end
 
   def highpoint(route)
-    self.attempts.order(score: :desc).where(route: route).take
+    attempts.order(score: :desc).where(route: route).take
   end
 end

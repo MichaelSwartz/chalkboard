@@ -13,8 +13,6 @@ feature 'Record Attempt' do
       sign_in_as user
       visit new_route_attempt_path(route)
 
-      save_and_open_page
-
       select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "25.45"
 
