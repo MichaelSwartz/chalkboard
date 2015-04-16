@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Record Attempt' do
   let(:user) { FactoryGirl.create(:user) }
-  let(:athlete) { FactoryGirl.create(:athlete) }
+  let!(:athlete) { FactoryGirl.create(:athlete) }
   let(:user2) { FactoryGirl.create(:user) }
   let(:comp) { FactoryGirl.create(:competition, user: user) }
   let(:round) { FactoryGirl.create(:round, competition: comp) }
@@ -13,7 +13,9 @@ feature 'Record Attempt' do
       sign_in_as user
       visit new_route_attempt_path(route)
 
-      fill_in "Athlete", with: athlete.name_last_first
+      save_and_open_page
+
+      select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "25.45"
 
       click_on "Record Attempt"
@@ -37,7 +39,7 @@ feature 'Record Attempt' do
       sign_in_as user
       visit new_route_attempt_path(route)
 
-      fill_in "Athlete", with: athlete.name_last_first
+      select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "Black 50"
 
       click_on "Record Attempt"

@@ -22,7 +22,7 @@ FactoryGirl.define do
 
   factory :route do
     sequence(:name) {|n| "Route #{n}" }
-    sequence(:scored_holds) {|n| n + 8 }
+    sequence(:max_score) {|n| n + 8.25 }
     round
   end
 
