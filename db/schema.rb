@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416145235) do
+ActiveRecord::Schema.define(version: 20150416200010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,12 +59,11 @@ ActiveRecord::Schema.define(version: 20150416145235) do
   add_index "rounds", ["competition_id", "number"], name: "index_rounds_on_competition_id_and_number", unique: true, using: :btree
 
   create_table "routes", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.integer  "round_id",     null: false
-    t.integer  "scored_holds", null: false
+    t.string   "name",       null: false
+    t.integer  "round_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "max_score"
+    t.float    "max_score",  null: false
   end
 
   add_index "routes", ["round_id", "name"], name: "index_routes_on_round_id_and_name", unique: true, using: :btree

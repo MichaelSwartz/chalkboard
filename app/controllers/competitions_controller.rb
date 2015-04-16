@@ -1,6 +1,7 @@
 class CompetitionsController < ApplicationController
   before_action :authenticate_user!, only:
     [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_owner!, only: [:edit, :update, :destroy]
 
     STATES = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
               'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME',
@@ -53,7 +54,7 @@ class CompetitionsController < ApplicationController
   end
 
   def destroy
-    @competition = competition.find(params[:id])
+    @competition = Competition.find(params[:id])
 
     if @competition.destroy
       flash[:alert] = "Competition deleted"
@@ -65,6 +66,15 @@ class CompetitionsController < ApplicationController
   end
 
   protected
+
+  def authenticate_owner!
+    @competition = Competition.find(params[:id])
+
+    unless @competition.user == current_user
+      flash[:alert] = "Access restricted to competition creator"
+      redirect_to competition_path(@competition)
+    end
+  end
 
   def competition_params
     params.require(:competition).permit(

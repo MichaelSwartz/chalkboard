@@ -1,6 +1,10 @@
 class RoutesController < ApplicationController
   before_action :authenticate_user!, only:
     [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_owner_nested!, only:
+    [:new, :create]
+  before_action :authenticate_owner_un_nested!, only:
+    [:edit, :update, :destroy]
 
   def index
     @round = Round.find(params[:round_id])
@@ -63,6 +67,26 @@ class RoutesController < ApplicationController
   end
 
   protected
+
+  def authenticate_owner_nested!
+    @round = Round.find(params[:round_id])
+    @competition = @round.competition
+
+    unless @competition.user == current_user
+      flash[:alert] = "Access restricted to competition creator"
+      redirect_to round_path(@round)
+    end
+  end
+
+  def authenticate_owner_un_nested!
+    @route = Route.find(params[:id])
+    @competition = @route.round.competition
+
+    unless @competition.user == current_user
+      flash[:alert] = "Access restricted to competition creator"
+      redirect_to route_path(@route)
+    end
+  end
 
   def route_params
     params.require(:route).permit(

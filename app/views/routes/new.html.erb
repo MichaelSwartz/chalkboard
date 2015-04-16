@@ -1,13 +1,13 @@
 <h2>Create New Route</h2>
 
 <div>
-  <%= form_for [@route, @attempt] do |f| %>
+  <%= form_for [@round, @route] do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
 
-    <%= f.label :max_score %>
+    <%= f.label :max_score, "Maximum Score" %>
     <%= f.number_field :max_score, step: 0.01 %>
 
-    <%= f.submit "Create Round", class: "button tiny success" %>
+    <%= f.submit "Create Route", class: "button tiny success" %>
   <% end %>
 </div>

@@ -5,9 +5,9 @@ class Route < ActiveRecord::Base
 
   validates :name, presence: true
   validates :round, presence: true
-  validates :scored_holds,
+  validates :max_score,
     presence: true,
-    numericality: { only_integer: true }
+    numericality: true
 
   def highpoints
     array = attempts.to_a.select { |a| a.highpoint? }

@@ -1,6 +1,10 @@
 class RoundsController < ApplicationController
   before_action :authenticate_user!, only:
     [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_owner_nested!, only:
+    [:new, :create]
+  before_action :authenticate_owner_un_nested!, only:
+    [:edit, :update, :destroy]
 
   def index
     @competition = Competition.find(params[:competition_id])
@@ -37,6 +41,7 @@ class RoundsController < ApplicationController
 
   def update
     @round = Round.find(params[:id])
+    @competition = @round.competition
 
     if @round.update(round_params)
       flash[:notice] = 'Round updated'
@@ -61,6 +66,25 @@ class RoundsController < ApplicationController
   end
 
   protected
+
+  def authenticate_owner_nested!
+    @competition = Competition.find(params[:competition_id])
+
+    unless @competition.user == current_user
+      flash[:alert] = "Access restricted to competition creator"
+      redirect_to competition_path(@competition)
+    end
+  end
+
+  def authenticate_owner_un_nested!
+    @round = Round.find(params[:id])
+    @competition = @round.competition
+
+    unless @competition.user == current_user
+      flash[:alert] = "Access restricted to competition creator"
+      redirect_to round_path(@round)
+    end
+  end
 
   def round_params
     params.require(:round).permit(

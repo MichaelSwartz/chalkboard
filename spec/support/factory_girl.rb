@@ -10,7 +10,7 @@ FactoryGirl.define do
   factory :athlete do
     sequence(:first_name) { |n| "#{n}first" }
     sequence(:last_name) { |n| "#{n}last" }
-    sequence(:date_of_birth) { |n| "0#{n}/0#{n}/199#{n}" }
+    sequence(:date_of_birth) { |n| Date.new(1995, n, n) }
     gender "female"
   end
 
@@ -28,7 +28,7 @@ FactoryGirl.define do
 
   factory :competition do
     sequence(:name) {|n| "Comp #{n}" }
-    sequence(:start_date) {|n| "0#{n}/0#{n}/201#{n}" }
+    sequence(:start_date) {|n| Date.new(2015, n, n) }
     user
   end
 end

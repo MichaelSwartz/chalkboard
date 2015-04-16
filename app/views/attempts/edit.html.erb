@@ -1,13 +1,27 @@
-<h2>Edit Attempt<h2>
+<h2>Edit Attempt <%= @attempt.number %> for <%= @attempt.athlete.name %> <h2>
 
-  <div>
-    <%= form_for @route do |f| %>
-      <%= f.label :athlete_id, "Athlete" %>
-      <%= f.collection_select :athlete_id, @athletes, :id, :name_last_first %>
+<h5>
+  Recorded at: <%= @attempt.created_at %>
+  <% unless @attempt.created_at == @attempt.updated_at %>
+    Edited at: <%= @attempt.updated_at %>
+  <% end %>
+</h5>
 
-      <%= f.label :score %>
-      <%= f.number_field :score, step: 0.01 %>
+<div>
+  <%= form_for @attempt do |f| %>
+    <%= f.label :athlete_id, "Athlete" %>
+    <%= f.collection_select :athlete_id, @athletes, :id, :name_last_first %>
 
-      <%= f.submit "Edit Attempt", class: "button tiny success" %>
-    <% end %>
-  </div>
+    <%= f.label :score %>
+    <%= f.number_field :score, step: 0.01 %>
+
+    <%= f.submit "Edit Attempt", class: "button tiny success" %>
+  <% end %>
+</div>
+
+<p>
+  <%= link_to "Delete Attempt", attempt_path(@attempt), method: :delete,
+    data: { confirm: "This will delete attempt permanently" } %>
+</p>
+
+<%= link_to "Back to All Attempts", route_attempts_path(@route) %>
