@@ -31,11 +31,12 @@ class RoundsController < ApplicationController
   end
 
   def edit
-    @round = round.find(params[:id])
+    @round = Round.find(params[:id])
+    @competition = @round.competition
   end
 
   def update
-    @round = round.find(params[:id])
+    @round = Round.find(params[:id])
 
     if @round.update(round_params)
       flash[:notice] = 'Round updated'
@@ -47,7 +48,7 @@ class RoundsController < ApplicationController
   end
 
   def destroy
-    @round = round.find(params[:id])
+    @round = Round.find(params[:id])
     @competition = @round.competition
 
     if @round.destroy

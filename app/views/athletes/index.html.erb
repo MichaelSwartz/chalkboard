@@ -14,7 +14,7 @@
   <tbody>
     <% @athletes.each do |athlete| %>
       <tr>
-        <td><%= link_to athlete.name, athlete_path(athlete) %></td>
+        <td><%= link_to athlete.name_last_first, athlete_path(athlete) %></td>
         <td><%= athlete.date_of_birth.year %></td>
         <td><%= athlete.gender %></td>
         <td><%= athlete.team %></td>
