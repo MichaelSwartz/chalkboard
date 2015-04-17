@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   resources :athletes
 
   resources :competitions do
+    resources :bibs, only: [:index, :create]
     resources :rounds, only: [:new, :create, :index]
   end
+
+  resources :bibs, only: [:edit, :update, :destroy]
 
   resources :rounds, except: [:new] do
     resources :routes, only: [:new, :create]
