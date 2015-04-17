@@ -69,6 +69,7 @@ class RoutesController < ApplicationController
   protected
 
   def authenticate_owner_nested!
+    #horizon authentication methods
     @round = Round.find(params[:round_id])
     @competition = @round.competition
 

@@ -8,8 +8,6 @@ class AttemptsController < ApplicationController
 
   def index
     @route = Route.find(params[:route_id])
-    @round = @route.round
-    @competition = @round.competition
     @attempts = @route.attempts.order(:created_at)
   end
 
@@ -21,11 +19,8 @@ class AttemptsController < ApplicationController
   end
 
   def new
-    @athletes = Athlete.order(:last_name)
     @route = Route.find(params[:route_id])
     @attempt = Attempt.new
-    @round = @route.round
-    @competition = @round.competition
   end
 
   def create

@@ -9,7 +9,7 @@ class Attempt < ActiveRecord::Base
     numericality: true
 
   def number
-    athlete_attempts(athlete).rindex(self) + 1
+    route.athlete_attempts(athlete).rindex(self) + 1
   end
 
   def highpoint?
@@ -21,7 +21,11 @@ class Attempt < ActiveRecord::Base
   end
 
   def flash?
-    send? && number == 1
+    send? && flash_attempt?
+  end
+
+  def flash_attempt?
+    number == 1
   end
 
   def score_display
@@ -32,7 +36,7 @@ class Attempt < ActiveRecord::Base
     end
   end
 
-  def class
+  def css_class
     if flash?
       "flash"
     elsif send?

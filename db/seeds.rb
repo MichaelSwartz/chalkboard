@@ -66,7 +66,7 @@ rounds.each do |round|
   if round.number == 1
     rand(2..5).times do |i|
       routes << round.routes.create(
-        name: "#{i} Faker::Commerce.color",
+        name: "#{i} #{Faker::Commerce.color}",
         max_score: rand(10..20)
       )
     end
