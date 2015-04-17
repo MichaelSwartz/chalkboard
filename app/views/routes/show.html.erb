@@ -22,12 +22,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @route.highpoints.each_with_index do |hp, index| %>
-      <tr>
+    <% @route.leaderboard.each_with_index do |hp, index| %>
+      <tr class=<% attempt.class %>>
         <td><%= index + 1 %></td>
-        <td><%= link_to hp.athlete.name, athlete_path(hp.athlete) %></td>
-        <td><%= hp.score %></td>
-        <td><%= hp.number %></td>
+        <td><%= link_to attempt.athlete.name_last_first, athlete_path(attempt.athlete) %></td>
+        <td><%= attempt.score %></td>
+        <td><%= attempt.number %></td>
       </tr>
     <% end %>
   </tbody>

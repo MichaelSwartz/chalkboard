@@ -17,18 +17,14 @@
   </thead>
   <tbody>
     <% @attempts.each do |attempt| %>
-      <% if attempt.highpoint? %>
-        <tr class="highpoint">
-      <% else %>
-        <tr>
-      <% end %>
-          <td><%= attempt.athlete.name %></td>
-          <td><%= attempt.score %></td>
-          <td><%= attempt.number %></td>
+      <tr class=<% attempt.class %>>
+        <td><%= attempt.athlete.name %></td>
+        <td><%= attempt.score %></td>
+        <td><%= attempt.number %></td>
 
-          <% if current_user == @competition.user %>
-            <td><%= link_to "Edit Attempt", edit_attempt_path(attempt) %></td>
-          <% end %>
+        <% if current_user == @competition.user %>
+          <td><%= link_to "Edit Attempt", edit_attempt_path(attempt) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
