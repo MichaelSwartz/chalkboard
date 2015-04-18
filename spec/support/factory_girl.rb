@@ -2,7 +2,7 @@ require 'factory_girl'
 
 FactoryGirl.define do
   factory :user do
-    sequence(:email) {|n| "user#{n}@example.com" }
+    sequence(:email) { |n| "user#{n}@example.com" }
     password 'password'
     password_confirmation 'password'
   end
@@ -14,20 +14,26 @@ FactoryGirl.define do
     gender "female"
   end
 
+  factory :bib do
+    sequence(:number) { |n| n }
+    competition
+    athlete
+  end
+
   factory :round do
-    sequence(:name) {|n| "Round #{n}" }
-    sequence(:number) {|n| n }
+    sequence(:name) { |n| "Round #{n}" }
+    sequence(:number) { |n| n }
     competition
   end
 
   factory :route do
-    sequence(:name) {|n| "Route #{n}" }
-    sequence(:max_score) {|n| n + 8.25 }
+    sequence(:name) { |n| "Route #{n}" }
+    sequence(:max_score) { |n| n + 8.25 }
     round
   end
 
   factory :competition do
-    sequence(:name) {|n| "Comp #{n}" }
+    sequence(:name) { |n| "Comp #{n}" }
     start_date Date.new(2015, 12, 12)
     user
   end

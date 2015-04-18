@@ -9,13 +9,42 @@ class Attempt < ActiveRecord::Base
     numericality: true
 
   def number
-    all = route.athlete_attempts(athlete).to_a
-    all.sort! { |a, b| a.created_at <=> b.created_at }
-    all.rindex(self) + 1
+    route.athlete_attempts(athlete).rindex(self) + 1
   end
 
   def highpoint?
-    all = route.athlete_attempts(athlete).sort { |a, b| a.score <=> b.score }
-    self == all.last
+    self == route.athlete_highpoint(athlete)
+  end
+
+  def send?
+    score == route.max_score
+  end
+
+  def flash?
+    send? && flash_attempt?
+  end
+
+  def flash_attempt?
+    number == 1
+  end
+
+  def score_display
+    if send?
+      "send"
+    else
+      score
+    end
+  end
+
+  def css_class
+    if flash?
+      "flash"
+    elsif send?
+      "send"
+    elsif highpoint?
+      "highpoint"
+    else
+      "other"
+    end
   end
 end

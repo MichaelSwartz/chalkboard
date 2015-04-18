@@ -1,0 +1,19 @@
+<h2><%= link_to @competition.name, competition_path(@competition) %></h2>
+<%= @competition.gender %>  <%= @competition.division %><br>
+
+<h3>Edit Bib for <%= @bib.athlete.name %></h3>
+
+<div>
+  <%= form_for @bib do |f| %>
+    <%= f.label :athlete_id, "Athlete" %>
+    <%= f.collection_select :athlete_id, @athletes, :id, :name_last_first,
+      include_blank: true %>
+
+    <%= f.label :number, "Bib Number" %>
+    <%= f.text_field :number %>
+
+    <%= f.submit "Edit Bib", class: "button tiny success" %>
+  <% end %>
+</div>
+
+<%= link_to "Back to All Athletes", comptition_bibs_path(@comptition) %>

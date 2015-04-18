@@ -13,8 +13,6 @@ class RoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
-    @round = @route.round
-    @competition = @round.competition
   end
 
   def new
@@ -69,6 +67,7 @@ class RoutesController < ApplicationController
   protected
 
   def authenticate_owner_nested!
+    #horizon authentication methods
     @round = Round.find(params[:round_id])
     @competition = @round.competition
 

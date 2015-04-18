@@ -13,7 +13,6 @@ class RoundsController < ApplicationController
 
   def show
     @round = Round.find(params[:id])
-    @competition = @round.competition
   end
 
   def new

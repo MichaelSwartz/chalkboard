@@ -7,8 +7,10 @@ class AthletesController < ApplicationController
   end
 
   def show
-    @athlete = Athlete.find(params[:id])
-    @competitions = @athlete.competitions
+    @athlete = Athlete.find(params[:id]) #eager loading & include
+    @competitions = @athlete.competitions #http://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations
+    #@athlete = Athlete.find(params[:id]).include(:competitions)
+    #database optimization
   end
 
   def new

@@ -7,6 +7,7 @@ Host Gym: <%= @competition.gym %>,
 <br>
 <% if current_user == @competition.user %>
   <%= link_to "Add Round", new_competition_round_path(@competition), class: "button tiny" %>
+  <%= link_to "Register Athletes", competition_bibs_path(@competition), class: "button tiny" %>
   <%= link_to "Edit Competition", edit_competition_path(@competition), class: "button tiny" %>
 <% end %>
 

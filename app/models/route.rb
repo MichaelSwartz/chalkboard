@@ -10,11 +10,34 @@ class Route < ActiveRecord::Base
     numericality: true
 
   def highpoints
-    array = attempts.to_a.select { |a| a.highpoint? }
-    array.sort! { |a, b| [b.score, a.number] <=> [a.score, b.number] }
+    attempts.to_a.select { |a| a.highpoint? }
+  end
+
+  def leaderboard
+    highpoints.sort! { |a, b| [b.score, a.number] <=> [a.score, b.number] }
   end
 
   def athlete_attempts(athlete)
-    attempts.where(athlete: athlete)
+    attempts.where(athlete: athlete).order(:created_at)
+  end
+
+  def athlete_highpoint(athlete)
+    attempts.where(athlete: athlete).order(:score).last
+  end
+
+  def attempts_to_highpoint(athlete)
+    athlete_highpoint(athlete).number
+  end
+
+  def send?(athlete)
+    athlete_highpoint(athlete).send?
+  end
+
+  def flash?(athlete)
+    athlete_highpoint(athlete).flash?
+  end
+
+  def score(athlete)
+    athlete_highpoint(athlete).score
   end
 end

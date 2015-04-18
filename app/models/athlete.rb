@@ -1,8 +1,9 @@
 class Athlete < ActiveRecord::Base
   has_many :attempts
+  has_many :bibs
+  has_many :competitions, through: :bibs
   has_many :routes, through: :attempts
   has_many :rounds, through: :routes
-  has_many :competitions, through: :rounds
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -18,6 +19,6 @@ class Athlete < ActiveRecord::Base
   end
 
   def highpoint(route)
-    self.attempts.order(score: :desc).where(route: route).take
+    attempts.order(score: :desc).where(route: route).take
   end
 end

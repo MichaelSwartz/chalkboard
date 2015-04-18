@@ -11,7 +11,6 @@ feature 'delete athlete' do
       visit edit_athlete_path(athlete)
 
       click_on "Delete Athlete"
-      # click_on "OK"
 
       expect(page).to have_content("Athlete deleted")
       expect(page).to_not have_content(athlete.last_name)

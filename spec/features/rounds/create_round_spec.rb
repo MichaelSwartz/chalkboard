@@ -9,12 +9,10 @@ feature 'create round' do
     scenario 'user who owns comp creates round' do
       sign_in_as user
       visit competition_path(comp)
-
       click_on "Add Round"
 
       fill_in "Name", with: "Qualifier"
       fill_in "Round Number", with: "1"
-
       click_on "Create Round"
 
       expect(page).to have_content("New round created")
@@ -25,9 +23,7 @@ feature 'create round' do
     scenario 'user fails to create round with insufficient information' do
       sign_in_as user
       visit competition_path(comp)
-
       click_on "Add Round"
-
       click_on "Create Round"
 
       expect(page).to have_content("Name can't be blank")
