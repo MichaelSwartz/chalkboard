@@ -14,6 +14,12 @@ FactoryGirl.define do
     gender "female"
   end
 
+  factory :bib do
+    sequence(:number) { |n| n }
+    competition
+    athlete
+  end
+
   factory :round do
     sequence(:name) { |n| "Round #{n}" }
     sequence(:number) { |n| n }
