@@ -1,17 +1,13 @@
-<h2><%= link_to @competition.name, competition_path(@competition) %></h2>
+<h2><%= link_to @round.competition.name, competition_path(@round.competition) %></h2>
  - <%= @round.name %> (Round <%= @round.number %>)
 </h2>
-<%= @competition.gender %>  <%= @competition.division %><br>
+<%= @round.competition.gender %>  <%= @round.competition.division %><br>
 
 <br>
-<% if current_user == @competition.user %>
+<% if current_user == @round.competition.user %>
   <%= link_to "Add Route", new_round_route_path(@round), class: "button tiny" %>
   <%= link_to "Edit Round", edit_round_path(@round), class: "button tiny" %>
 <% end %>
-
-<ul>
-
-</ul>
 
 <table>
   <thead>
@@ -21,12 +17,11 @@
       <th>Sends</th>
       <th>Total Score</th>
       <th>Flashes</th>
-      <th>Total Attempts to Highpoints</th>
+      <th>Attempts*</th>
       <% @round.routes.each do |route| %>
         <th>
           <%= link_to route.name, route_path(route) %><br>
-          Score (Attempts to Highpoint)
-        </th> Points
+        </th>
       <% end %>
     </tr>
   </thead>
@@ -34,17 +29,22 @@
     <% @round.leaderboard.each_with_index do |athlete, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= link_to attempt.athlete.name_last_first, athlete_path(attempt.athlete) %></td>
-        <td><%= attempt.sends %></td>
-        <td><%= attempt.total_score %></td>
-        <td><%= attempt.flashes %></td>
-        <td><%= attempt.total_attempts_to_highponts %></td>
+        <td><%= link_to athlete.name_last_first, athlete_path(athlete) %></td>
+        <td><%= @round.sends(athlete) %></td>
+        <td><%= @round.total_score(athlete) %></td>
+        <td><%= @round.flashes(athlete) %></td>
+        <td><%= @round.attempts_to_highpoints(athlete) %></td>
         <% @round.routes.each do |route| %>
-          <tr>
+          <td>
             <%= route.score(athlete) %> (<%= route.attempts_to_highpoint(athlete) %>)
-          </tr> Points
+          </td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<p>
+  *Total attempts to highpoints<br>
+  Route scores displayed as "score(attempts to highpoint)"
+</p>

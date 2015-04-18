@@ -13,8 +13,6 @@ class RoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
-    @round = @route.round
-    @competition = @round.competition
   end
 
   def new

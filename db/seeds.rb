@@ -66,25 +66,26 @@ rounds.each do |round|
   if round.number == 1
     rand(2..5).times do |i|
       routes << round.routes.create(
-        name: "#{i} #{Faker::Commerce.color}",
-        max_score: rand(10..20)
+        name: "#{i + 1} #{Faker::Commerce.color.capitalize}",
+        max_score: rand(10) + 10
       )
     end
   else
     routes << round.routes.create(
-      name: Faker::Commerce.color,
-      max_score: rand(10..20)
+      name: Faker::Commerce.color.capitalize,
+      max_score: rand(10) + 10
     )
   end
 end
 
-# routes.each do |route|
-#   route.round.competition.bibs.each do |bib|
-#     rand(1..5).times do
-#       route.attempts.create(
-#         athlete: bib.athlete,
-#         score: rand(3..route.max_score)
-#       )
-#     end
-#   end
-# end
+routes.each do |route|
+  route.round.competition.bibs.each do |bib|
+    rand(1..5).times do
+      a = route.attempts.create(
+        athlete: bib.athlete,
+        score: route.max_score - rand(7)
+      )
+      break if a.score == route.max_score
+    end
+  end
+end

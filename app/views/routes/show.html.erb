@@ -1,13 +1,16 @@
 <h2>
-  <%= @competition.name %> - <%= link_to @round.name, round_path(@round) %>
-  (Round <%= @round.number %>)
+  <%= @route.round.competition.name %> - <%= link_to @route.round.name, round_path(@route.round) %>
+  (Round <%= @route.round.number %>)
 </h2>
-<%= @competition.gender %>  <%= @competition.division %><br>
+<%= @route.round.competition.gender %>  <%= @route.round.competition.division %><br>
 
-<h3><%= @route.name %></h3>
+<h3>
+  <%= @route.name %><br>
+  Maximum score: <%= @route.max_score %>
+</h3>
 
 <br>
-<% if current_user == @competition.user %>
+<% if current_user == @route.round.competition.user %>
   <%= link_to "Record Attempt", new_route_attempt_path(@route), class: "button tiny" %>
   <%= link_to "Edit Route", edit_route_path(@route), class: "button tiny" %>
 <% end %>
@@ -22,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @route.leaderboard.each_with_index do |hp, index| %>
+    <% @route.leaderboard.each_with_index do |attempt, index| %>
       <tr class=<% attempt.class %>>
         <td><%= index + 1 %></td>
         <td><%= link_to attempt.athlete.name_last_first, athlete_path(attempt.athlete) %></td>
