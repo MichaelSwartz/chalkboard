@@ -12,7 +12,7 @@ class RoundsController < ApplicationController
   end
 
   def show
-    @round = Round.find(params[:id])
+    @round = Round.includes(:routes, :attempts).find(params[:id])
   end
 
   def new
