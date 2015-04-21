@@ -7,7 +7,7 @@ feature 'Record Attempt' do
   let(:comp) { FactoryGirl.create(:competition, user: user) }
   let!(:bib) { FactoryGirl.create(:bib, athlete: athlete, competition: comp)}
   let(:round) { FactoryGirl.create(:round, competition: comp) }
-  let(:route) { FactoryGirl.create(:route, round: round) }
+  let(:route) { FactoryGirl.create(:route, round: round, max_score: 30) }
 
   context 'as an authorized user' do
     scenario 'authorized user records attempt' do

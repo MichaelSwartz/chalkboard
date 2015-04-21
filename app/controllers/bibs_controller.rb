@@ -22,7 +22,7 @@ class BibsController < ApplicationController
       redirect_to competition_bibs_path(@competition)
     else
       flash[:alert] = @bib.errors.full_messages.join(". ")
-      render :new
+      redirect_to competition_bibs_path(@competition)
     end
   end
 

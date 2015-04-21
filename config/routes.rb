@@ -19,5 +19,5 @@ Rails.application.routes.draw do
     resources :attempts, only: [:new, :create, :index]
   end
 
-  resources :attempts, except: [:new, :create, :index]
+  resources :attempts, only: [:edit, :update, :destroy]
 end
