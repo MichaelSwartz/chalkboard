@@ -13,7 +13,7 @@ class Attempt < ActiveRecord::Base
     numericality: { greater_than_or_equal_to: 0 }
   validate :validate_within_max_score, on: [:create, :update]
 
-  after_save :update_leaderboard
+  # after_save :update_leaderboard
   # 
   # def update_leaderboard
   #   leaderbaord = RoundLeaderBoard.find_or_initialize_by(athlete: athlete, round: round)
