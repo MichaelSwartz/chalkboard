@@ -7,24 +7,15 @@ class AttemptsController < ApplicationController
     [:edit, :update, :destroy]
 
   def index
-    @route = Route.find(params[:route_id])
-    @attempts = @route.attempts.order(:created_at)
-  end
-
-  def show
-    @attempt = Attempt.find(params[:id])
-    @route = @attempt.route
-    @round = @route.round
-    @competition = @round.competition
+    @route = Route.includes(:attempts, :round).find(params[:route_id])
   end
 
   def new
-    @route = Route.find(params[:route_id])
+    @route = Route.includes(:round).find(params[:route_id])
     @attempt = Attempt.new
   end
 
   def create
-    @athletes = Athlete.order(:last_name)
     @route = Route.find(params[:route_id])
     @attempt = @route.attempts.new(attempt_params)
 
@@ -39,19 +30,14 @@ class AttemptsController < ApplicationController
 
   def edit
     @attempt = Attempt.find(params[:id])
-    @route = @attempt.route
-    @round = @route.round
-    @competition = @round.competition
-    @athletes = Athlete.order(:last_name)
   end
 
   def update
     @attempt = Attempt.find(params[:id])
-    @athletes = Athlete.order(:last_name)
 
     if @attempt.update(attempt_params)
       flash[:notice] = 'Attempt updated'
-      redirect_to route_attempts_path(@route)
+      redirect_to route_attempts_path(@attempt.route)
     else
       flash[:alert] = @attempt.errors.full_messages.join(". ")
       render :edit
@@ -60,14 +46,13 @@ class AttemptsController < ApplicationController
 
   def destroy
     @attempt = Attempt.find(params[:id])
-    @route = @attempt.route
 
     if @attempt.destroy
       flash[:alert] = "Attempt deleted"
-      redirect_to route_path(@route)
+      redirect_to route_attempts_path(@attempt.route)
     else
       flash[:alert] = @attempt.errors.full_messages.join(". ")
-      render :show
+      render :edit
     end
   end
 

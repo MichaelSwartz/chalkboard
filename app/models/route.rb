@@ -1,5 +1,7 @@
 class Route < ActiveRecord::Base
   belongs_to :round
+  delegate :competition, to: :round
+
   has_many :attempts
   has_many :athletes, through: :attempts
 
@@ -14,7 +16,7 @@ class Route < ActiveRecord::Base
   end
 
   def leaderboard
-    highpoints.sort! { |a, b| [b.score, a.number] <=> [a.score, b.number] }
+    highpoints.sort_by { |a| [-a.score, a.number] }
   end
 
   def athlete_attempts(athlete)
@@ -39,5 +41,13 @@ class Route < ActiveRecord::Base
 
   def score(athlete)
     athlete_highpoint(athlete).score
+  end
+
+  def score_display(athlete)
+    if send?(athlete)
+      "TOP"
+    else
+      score(athlete)
+    end
   end
 end

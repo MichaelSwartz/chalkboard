@@ -1,7 +1,7 @@
 <h2>Edit <%= @round.name %><h2>
 <h3>
-  <%= link_to @competition.name, competition_path(@competition)  %>
-  <%= @competition.division %><%= @competition.gender %>
+  <%= link_to @round.competition.name, competition_path(@round.competition)  %>
+  <%= @round.competition.division %><%= @round.competition.gender %>
 </h3>
 
 <div>

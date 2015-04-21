@@ -1,8 +1,8 @@
 <h2>
-  <%= @route.round.competition.name %> - <%= link_to @route.round.name, round_path(@route.round) %>
+  <%= @route.competition.name %> - <%= link_to @route.round.name, round_path(@route.round) %>
   (Round <%= @route.round.number %>)
 </h2>
-<%= @route.round.competition.gender %>  <%= @route.round.competition.division %><br>
+<%= @route.competition.gender %>  <%= @route.competition.division %><br>
 
 <h3>
   All attempts on route: <%= link_to @route.name, route_path(@route) %><br>
@@ -15,13 +15,13 @@
       <th>Athlete</th>
       <th>Score</th>
       <th>Attempt #</th>
-      <% if current_user == @route.round.competition.user %>
+      <% if current_user == @route.competition.user %>
         <th></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% @attempts.each do |attempt| %>
+    <% @route.attempts.each do |attempt| %>
       <tr class=<% attempt.class %>>
         <td><%= attempt.athlete.name %></td>
         <td><%= attempt.score %></td>

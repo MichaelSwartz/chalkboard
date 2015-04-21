@@ -35,7 +35,6 @@ class RoundsController < ApplicationController
 
   def edit
     @round = Round.find(params[:id])
-    @competition = @round.competition
   end
 
   def update

@@ -10,8 +10,9 @@
 <div>
   <%= form_for @attempt do |f| %>
     <%= f.label :athlete_id, "Athlete" %>
-    <%= f.collection_select :athlete_id, @athletes, :id, :name_last_first %>
-
+    <%= f.collection_select :athlete_id, @route.athletes.order(:last_name),
+      :id, :name_last_first, include_blank: true %>
+      
     <%= f.label :score %>
     <%= f.number_field :score, step: 0.01 %>
 
