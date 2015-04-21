@@ -13,11 +13,14 @@ class Round < ActiveRecord::Base
     numericality: { only_integer: true }
 
   def leaderboard
-    if first_round?
-      first_round_leaderboard
-    else
-      subsequent_round_leaderboard
-    end
+    first_round_leaderboard
+    #
+    #
+    # if first_round?
+    #   first_round_leaderboard
+    # else
+    #   subsequent_round_leaderboard
+    # end
   end
 
   def first_round_leaderboard
@@ -26,11 +29,11 @@ class Round < ActiveRecord::Base
     end
   end
 
-  def subsequent_round_leaderboard
-    athletes.uniq.sort_by do |a|
-      [-sends(a), -total_score(a), -flashes(a), attempts_to_highpoints(a), previous_round.standings[a]]
-    end
-  end
+  # def subsequent_round_leaderboard
+  #   athletes.uniq.sort_by do |a|
+  #     [-sends(a), -total_score(a), -flashes(a), attempts_to_highpoints(a), previous_round.standings[a]]
+  #   end
+  # end
 
   def standings
     standings = {}
@@ -66,13 +69,6 @@ class Round < ActiveRecord::Base
     end
   end
 
-  def flashes(athlete)
-    sends = 0
-    routes.each do |route|
-      sends += 1 if route.flash?(athlete)
-    end
-    sends
-  end
 
   def attempts_to_highpoints(athlete)
     routes.inject(0) do |sum, route|

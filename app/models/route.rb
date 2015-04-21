@@ -3,7 +3,9 @@ class Route < ActiveRecord::Base
   delegate :competition, to: :round
 
   has_many :attempts
-  has_many :athletes, through: :attempts
+  has_many :highpoints
+  has_many :route_ranks, through: :highpoints
+  has_many :athletes, through: :highpoints
 
   validates :name, presence: true
   validates :round, presence: true
@@ -11,48 +13,36 @@ class Route < ActiveRecord::Base
     presence: true,
     numericality: true
 
-  def highpoints
-    attempts.to_a.select { |a| a.highpoint? }
-  end
-
   def leaderboard
-    highpoints.sort_by { |a| [-a.score, a.number] }
-  end
-
-  # def standings
-  #   hash = {}
-  #   leaderboard.each_with_index do |highpoint, i|
-  #     if i == 0 || [-highpoint.score, highpoint.number] == [leaderboard[i - 1].score, leaderboard[i - 1].number]
-  #       hash[highpoint.athlete] = (index + 1)
-  #     else
-  #       hash[highpoint.athlete] = standings[highpoint[i - 1].athlete]
-  #     end
-  #   end
-  #   hash
-  # end
-
-  def athlete_attempts(athlete)
-    attempts.where(athlete: athlete).order(:created_at)
-  end
-
-  def athlete_highpoint(athlete)
-    attempts.where(athlete: athlete).order(:score).last
+    route_ranks.order(:rank)
   end
 
   def attempts_to_highpoint(athlete)
     athlete_highpoint(athlete).try(:number) || 0
   end
 
+  def athlete_attempts(athlete)
+    attempts.where(athlete: athlete).order(:created_at)
+  end
+
+  def athlete_highpoint(athlete)
+    highpoints.where(athlete: athlete)
+  end
+
+  def athlete_rank(athlete)
+    route_ranks.find_by(athlete: athlete)
+  end
+
   def send?(athlete)
     athlete_highpoint(athlete).try(:send?)
   end
 
-  def flash?(athlete)
-    athlete_highpoint(athlete).try(:flash?)
-  end
-
   def score(athlete)
     athlete_highpoint(athlete).try(:score) || 0
+  end
+
+  def rank_points(athlete)
+    route_ranks.find_by(athlete: athlete)
   end
 
   def score_display(athlete)
