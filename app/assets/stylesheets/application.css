@@ -16,3 +16,10 @@
  *= require font-awesome
 
  */
+
+@import "modules/topbar";
+@import "modules/landing";
+@import "modules/variables";
+
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic);
