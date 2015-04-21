@@ -3,28 +3,22 @@ class CompetitionsController < ApplicationController
     [:new, :create, :edit, :update, :destroy]
   before_action :authenticate_owner!, only: [:edit, :update, :destroy]
 
-  STATES = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
-            'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME',
-            'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM',
-            'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX',
-            'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY']
-
   def index
     @competitions = Competition.order(start_date: :desc)
   end
 
   def show
-    @competition = Competition.find(params[:id])
+    @competition = Competition.includes(:rounds, :routes, :attempts).find(params[:id])
   end
 
   def new
     @competition = Competition.new
-    @states = STATES
+    @states = Competition::STATES
   end
 
   def create
     @competition = current_user.competitions.new(competition_params)
-    @states = STATES
+    @states = Competition::STATES
 
     if @competition.save
       flash[:notice] = 'New competition created'
@@ -37,12 +31,12 @@ class CompetitionsController < ApplicationController
 
   def edit
     @competition = Competition.find(params[:id])
-    @states = STATES
+    @states = Competition::STATES
   end
 
   def update
     @competition = Competition.find(params[:id])
-    @states = STATES
+    @states = Competition::STATES
 
     if @competition.update(competition_params)
       flash[:notice] = 'Competition updated'

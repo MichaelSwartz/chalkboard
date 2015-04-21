@@ -19,6 +19,18 @@ class Route < ActiveRecord::Base
     highpoints.sort_by { |a| [-a.score, a.number] }
   end
 
+  # def standings
+  #   hash = {}
+  #   leaderboard.each_with_index do |highpoint, i|
+  #     if i == 0 || [-highpoint.score, highpoint.number] == [leaderboard[i - 1].score, leaderboard[i - 1].number]
+  #       hash[highpoint.athlete] = (index + 1)
+  #     else
+  #       hash[highpoint.athlete] = standings[highpoint[i - 1].athlete]
+  #     end
+  #   end
+  #   hash
+  # end
+
   def athlete_attempts(athlete)
     attempts.where(athlete: athlete).order(:created_at)
   end

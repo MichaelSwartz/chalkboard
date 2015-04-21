@@ -1,0 +1,44 @@
+@import "variables";
+
+.top-bar {
+  background: $topbar-bg-color;
+
+  .name h1 {
+    color: $white;
+    display: block;
+    font-family: Lobster;
+    padding: 0 0.9375rem;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+
+  }
+
+  .row {
+    background-color: $blue;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    max-width: 62.5rem;
+  }
+
+  .button {
+    background-color: $pink;
+    font-family: Lato;
+    line-height: 15px;
+    min-width: 100%;
+  }
+}
+
+.top-bar-section li:not(.has-form) a:not(.button) {
+  background: $topbar-bg-color;
+  font-family: Lato;
+  line-height: 2.8125rem;
+  padding: 0 0.9375rem;
+}
+
+.top-bar-section ul:not(.has-form) a:not(.buttom) {
+  font-family: Lato;
+  padding-top: 10px;
+}

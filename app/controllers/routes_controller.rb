@@ -12,7 +12,7 @@ class RoutesController < ApplicationController
   end
 
   def show
-    @route = Route.find(params[:id])
+    @route = Route.includes(:attempts, :round).find(params[:id])
   end
 
   def new
