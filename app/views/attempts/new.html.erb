@@ -3,7 +3,8 @@
 <div>
   <%= form_for [@route, @attempt] do |f| %>
     <%= f.label :athlete_id, "Athlete" %>
-    <%= f.collection_select :athlete_id, @route.athletes.order(:last_name),
+    <%= f.collection_select :athlete_id,
+      @route.round.competition.athletes.order(:last_name),
       :id, :name_last_first, include_blank: true %>
 
     <%= f.label :score %>

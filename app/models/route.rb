@@ -28,19 +28,19 @@ class Route < ActiveRecord::Base
   end
 
   def attempts_to_highpoint(athlete)
-    athlete_highpoint(athlete).number
+    athlete_highpoint(athlete).try(:number) || 0
   end
 
   def send?(athlete)
-    athlete_highpoint(athlete).send?
+    athlete_highpoint(athlete).try(:send?)
   end
 
   def flash?(athlete)
-    athlete_highpoint(athlete).flash?
+    athlete_highpoint(athlete).try(:flash?)
   end
 
   def score(athlete)
-    athlete_highpoint(athlete).score
+    athlete_highpoint(athlete).try(:score) || 0
   end
 
   def score_display(athlete)

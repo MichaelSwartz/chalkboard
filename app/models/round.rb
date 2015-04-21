@@ -4,6 +4,8 @@ class Round < ActiveRecord::Base
   has_many :attempts, through: :routes
   has_many :athletes, through: :attempts
 
+  # delegate :athletes, to: :competition
+
   validates :competition, presence: true
   validates :name, presence: true
   validates :number,

@@ -14,13 +14,13 @@ class Competition < ActiveRecord::Base
     final_round.leaderboard
   end
 
-  def ordered_rounds
-    rounds.order(:number)
+  def final_round
+    rounds.order(:number).last
   end
 
-  def final_round
-    ordered_rounds.last
-  end
+  # def ordered_rounds
+  #   rounds.order(:number)
+  # end
 
 #   def first_round
 #     ordered_rounds.first

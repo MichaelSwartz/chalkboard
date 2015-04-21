@@ -14,9 +14,11 @@ class Attempt < ActiveRecord::Base
   validate :validate_within_max_score, on: [:create, :update]
 
   def validate_within_max_score
-    unless score <= route.max_score
-      errors.add(:score,
-        "cannot be higher than route maximum score of #{route.max_score}")
+    if score
+      unless score <= route.max_score
+        errors.add(:score,
+          "cannot be higher than route maximum score of #{route.max_score}")
+      end
     end
   end
 
