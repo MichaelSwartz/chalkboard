@@ -8,6 +8,7 @@ gem 'foundation-rails', '~> 5.5.1.0'
 gem 'rails_12factor', group: :production
 gem 'sass-rails', '~> 5.0'
 gem "font-awesome-rails"
+
 gem 'faker'
 
 group :development, :test do
