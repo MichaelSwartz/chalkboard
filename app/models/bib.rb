@@ -5,5 +5,6 @@ class Bib < ActiveRecord::Base
   validates :competition, presence: true
   validates :athlete, presence: true
   validates :athlete, uniqueness: { scope: :competition }
-  validates :number, uniqueness: { scope: :competition }, allow_nil: true
+  validates :number, uniqueness: { scope: :competition },
+    allow_nil: true, allow_blank: true
 end

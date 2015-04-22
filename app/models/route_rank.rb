@@ -12,6 +12,4 @@ class RouteRank < ActiveRecord::Base
     numericality: true
   validates :athlete, presence: true
   validates :route, presence: true
-
-  # after_save :update_route_leaderboard
 end

@@ -19,6 +19,7 @@ class Attempt < ActiveRecord::Base
     highpoint = Highpoint.find_or_initialize_by(athlete: athlete, route: route)
     if highpoint.score.nil? || (score > highpoint.score)
       highpoint.attempt = self
+      highpoint.top = top?
       highpoint.save
     end
   end
@@ -33,19 +34,19 @@ class Attempt < ActiveRecord::Base
   end
 
   def number
-    route.athlete_attempts(athlete).rindex(self) + 1
+    route.athlete_attempts(athlete).rindex(self)
   end
 
   def highpoint?
     self == route.athlete_highpoint(athlete)
   end
 
-  def send?
+  def top?
     score == route.max_score
   end
 
   def score_display
-    if send?
+    if top?
       "TOP"
     else
       score

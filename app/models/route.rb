@@ -13,6 +13,14 @@ class Route < ActiveRecord::Base
     presence: true,
     numericality: true
 
+  after_save :set_default_attempts
+
+  def set_default_attempts
+    round.competition.athletes.each do |athlete|
+      attempts.create(athlete: athlete, score: 0)
+    end
+  end
+
   def leaderboard
     route_ranks.order(:rank)
   end
@@ -30,23 +38,23 @@ class Route < ActiveRecord::Base
   end
 
   def athlete_rank(athlete)
+    route_ranks.find_by(athlete: athlete).try(:rank)
+  end
+  #FIX duplicate methods
+  def rank_points(athlete)
     route_ranks.find_by(athlete: athlete)
   end
 
-  def send?(athlete)
-    athlete_highpoint(athlete).try(:send?)
+  def top?(athlete)
+    athlete_highpoint(athlete).try(:top?)
   end
 
   def score(athlete)
     athlete_highpoint(athlete).try(:score) || 0
   end
 
-  def rank_points(athlete)
-    route_ranks.find_by(athlete: athlete)
-  end
-
   def score_display(athlete)
-    if send?(athlete)
+    if top?(athlete)
       "TOP"
     else
       score(athlete)

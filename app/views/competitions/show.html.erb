@@ -25,21 +25,21 @@ Host Gym: <%= @competition.gym %>,
       <tr>
         <th>Standing</th>
         <th>Athlete</th>
-        <% unless @competition.final_round.single_route? %>
-          <th>Sends</th>
-          <th>Total Score</th>
-          <th>Flashes</th>
-          <th>Attempts*</th>
-          <% @competition.final_round.routes.each do |route| %>
-            <th><%= link_to route.name, route_path(route) %></th>
-          <% end %>
-        <% else %>
+
+        <% if @competition.final_round.single_route? %>
           <th>
             <%= link_to @competition.final_round.routes.first.name,
               route_path(@competition.final_round.routes.first) %>
-            </th>
+          </th>
           <th>Attempts</th>
+        <% else %>
+          <th>Tops</th>
+          <th>Round Score</th>
+          <% @competition.final_round.routes.each do |route| %>
+            <th><%= link_to route.name, route_path(route) %></th>
+          <% end %>
         <% end %>
+
         <% @competition.rounds.each do |round| %>
           <% unless round == @competition.final_round %>
             <th>
@@ -50,31 +50,24 @@ Host Gym: <%= @competition.gym %>,
       </tr>
     </thead>
     <tbody>
-      <% @competition.leaderboard.each do |athlete| %>
+      <% @competition.leaderboard.each_with_index do |r_score, i| %>
         <tr>
-          <td><%= @competition.final_round.standings[athlete] %></td>
-          <td><%= link_to athlete.name_last_first, athlete_path(athlete) %></td>
-          <% unless @competition.final_round.single_route? %>
-            <td><%= @competition.final_round.sends(athlete) %></td>
-            <td><%= @competition.final_round.total_score(athlete) %></td>
-            <td><%= @competition.final_round.flashes(athlete) %></td>
-            <td><%= @competition.final_round.attempts_to_highpoints(athlete) %></td>
-            <% @competition.final_round.routes.each do |route| %>
-              <td>
-                <%= route.score_display(athlete) %> (<%= route.attempts_to_highpoint(athlete) %>)
-              </td>
-            <% end %>
+          <td><%= i + 1 %></td>
+          <td><%= link_to r_score.athlete.name_last_first, athlete_path(r_score.athlete) %></td>
+          <% if @competition.final_round.single_route? %>
+            <td><%= @competition.final_round.routes.first.score_display(r_score.athlete) %></td>
+            <td><%= @competition.final_round.routes.first.attempts_to_highpoint(r_score.athlete) %></td>
           <% else %>
-            <td><%= @competition.final_round.routes.first.score_display(athlete) %></td>
-            <td>
-              <%= @competition.final_round.routes.first.attempts_to_highpoint(athlete) %>
-            </td>
+            <td><%= r_score.tops %></td>
+            <td><%= r_score.score %></td>
+            <% @competition.final_round.routes.each do |route| %>
+              <td><%= route.athlete_rank(r_score.athlete) %></td>
+            <% end %>
           <% end %>
+
           <% @competition.rounds.reverse_each do |round| %>
             <% unless round == @competition.final_round %>
-              <th>
-                <%= round.standings[athlete] %>
-              </th>
+              <th> <%= round.round_score(r_score.athlete) %></th>
             <% end %>
           <% end %>
         </tr>

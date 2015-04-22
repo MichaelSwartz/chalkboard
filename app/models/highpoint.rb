@@ -14,6 +14,7 @@ class Highpoint < ActiveRecord::Base
   validates :route, presence: true
 
   after_save :update_route_leaderboard
+  after_save :update_round_scores
 
   def update_route_leaderboard
     hash = {}
@@ -30,17 +31,30 @@ class Highpoint < ActiveRecord::Base
         rank = RouteRank.find_or_initialize_by(athlete: inner_array[0].athlete, route: route)
         rank.rank = route_rank
         rank.highpoint = inner_array[0]
-        rank.save
+        rank.save!
       end
     end
   end
 
-  def send?
+  def update_round_scores
+    round.athletes.uniq.each do |athlete|
+      round_score = RoundScore.find_or_initialize_by(athlete: athlete, round: round)
+      route_count = round.routes.count
+      total_score = round.routes.inject(0.0) do |sum, route|
+        sum + (route.athlete_rank(athlete) || 0)
+      end
+      round_score.score = (total_score.to_f ** (1 / route_count.to_f)).round(2)
+      round_score.tops = round.top_count(athlete)
+      round_score.save
+    end
+  end
+
+  def top?
     score == route.max_score
   end
 
   def score_display
-    if send?
+    if top?
       "TOP"
     else
       score
@@ -48,8 +62,8 @@ class Highpoint < ActiveRecord::Base
   end
 
   def css_class
-    if send?
-      "send"
+    if top?
+      "top"
     else
       "other"
     end
