@@ -18,24 +18,22 @@
 <table>
   <thead>
     <tr>
-      <th>Standing</th>
+      <th>Ranking Points</th>
       <th>Athlete</th>
       <th>Route Score</th>
       <th>Attempts to Highpoint</th>
     </tr>
   </thead>
   <tbody>
-    <% @route.leaderboard.each_with_index do |attempt, index| %>
-      <tr class=<% attempt.class %>>
-        <td><%= index + 1 %></td>
-        <td><%= link_to attempt.athlete.name_last_first, athlete_path(attempt.athlete) %></td>
-        <td><%= attempt.score_display %></td>
-        <td><%= attempt.number %></td>
+    <% @route.leaderboard.each do |r_rank| %>
+      <tr class=<% r_rank.highpoint.css_class %>>
+        <td><%= r_rank.rank %></td>
+        <td><%= link_to r_rank.athlete.name_last_first, athlete_path(r_rank.athlete) %></td>
+        <td><%= r_rank.highpoint.score_display %></td>
+        <td><%= r_rank.number %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
 
 <%= link_to "All Attempts", route_attempts_path(@route) %>

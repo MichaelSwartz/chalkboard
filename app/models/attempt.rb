@@ -13,13 +13,16 @@ class Attempt < ActiveRecord::Base
     numericality: { greater_than_or_equal_to: 0 }
   validate :validate_within_max_score, on: [:create, :update]
 
-  # after_save :update_leaderboard
-  # 
-  # def update_leaderboard
-  #   leaderbaord = RoundLeaderBoard.find_or_initialize_by(athlete: athlete, round: round)
-  #   leaderboard.total_score = #calculate it
-  #   leaderboard.save!
-  # end
+  after_save :update_highpoint
+
+  def update_highpoint
+    highpoint = Highpoint.find_or_initialize_by(athlete: athlete, route: route)
+    if highpoint.score.nil? || (score > highpoint.score)
+      highpoint.attempt = self
+      highpoint.top = top?
+      highpoint.save
+    end
+  end
 
   def validate_within_max_score
     if score
@@ -31,42 +34,22 @@ class Attempt < ActiveRecord::Base
   end
 
   def number
-    route.athlete_attempts(athlete).rindex(self) + 1
+    route.athlete_attempts(athlete).rindex(self)
   end
 
   def highpoint?
     self == route.athlete_highpoint(athlete)
   end
 
-  def send?
+  def top?
     score == route.max_score
   end
 
-  def flash?
-    send? && flash_attempt?
-  end
-
-  def flash_attempt?
-    number == 1
-  end
-
   def score_display
-    if send?
+    if top?
       "TOP"
     else
       score
-    end
-  end
-
-  def css_class
-    if flash?
-      "flash"
-    elsif send?
-      "send"
-    elsif highpoint?
-      "highpoint"
-    else
-      "other"
     end
   end
 end

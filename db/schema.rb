@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417153907) do
+ActiveRecord::Schema.define(version: 20150422174103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20150417153907) do
   end
 
   add_index "bibs", ["athlete_id", "competition_id"], name: "index_bibs_on_athlete_id_and_competition_id", unique: true, using: :btree
-  add_index "bibs", ["number", "competition_id"], name: "index_bibs_on_number_and_competition_id", unique: true, using: :btree
 
   create_table "competitions", force: :cascade do |t|
     t.string   "name",       null: false
@@ -58,6 +57,24 @@ ActiveRecord::Schema.define(version: 20150417153907) do
     t.datetime "updated_at"
   end
 
+  create_table "highpoints", force: :cascade do |t|
+    t.integer "route_id",   null: false
+    t.integer "athlete_id", null: false
+    t.integer "attempt_id", null: false
+    t.boolean "top"
+  end
+
+  add_index "highpoints", ["route_id", "athlete_id"], name: "index_highpoints_on_route_id_and_athlete_id", unique: true, using: :btree
+
+  create_table "round_scores", force: :cascade do |t|
+    t.integer "athlete_id", null: false
+    t.integer "round_id",   null: false
+    t.float   "score",      null: false
+    t.integer "tops",       null: false
+  end
+
+  add_index "round_scores", ["round_id", "athlete_id"], name: "index_round_scores_on_round_id_and_athlete_id", unique: true, using: :btree
+
   create_table "rounds", force: :cascade do |t|
     t.string  "name",           null: false
     t.integer "number",         null: false
@@ -66,6 +83,15 @@ ActiveRecord::Schema.define(version: 20150417153907) do
 
   add_index "rounds", ["competition_id", "name"], name: "index_rounds_on_competition_id_and_name", unique: true, using: :btree
   add_index "rounds", ["competition_id", "number"], name: "index_rounds_on_competition_id_and_number", unique: true, using: :btree
+
+  create_table "route_ranks", force: :cascade do |t|
+    t.integer "route_id",     null: false
+    t.integer "athlete_id",   null: false
+    t.float   "rank",         null: false
+    t.integer "highpoint_id", null: false
+  end
+
+  add_index "route_ranks", ["route_id", "athlete_id"], name: "index_route_ranks_on_route_id_and_athlete_id", unique: true, using: :btree
 
   create_table "routes", force: :cascade do |t|
     t.string   "name",       null: false

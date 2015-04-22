@@ -4,6 +4,8 @@ class Athlete < ActiveRecord::Base
   has_many :competitions, through: :bibs
   has_many :routes, through: :attempts
   has_many :rounds, through: :routes
+  has_many :route_ranks
+  has_many :round_scores
 
   validates :first_name, presence: true
   validates :last_name, presence: true

@@ -22,14 +22,14 @@ users = [a, b]
   )
 end
 
-10.times do
+0.times do
   competitions << users.sample.competitions.create(
     name: Faker::Commerce.product_name,
     start_date: Faker::Date.between(1.year.ago, Date.today),
   )
 end
 
-10.times do
+1.times do
   date = Faker::Date.between(1.year.ago, Date.today)
   competitions << users.sample.competitions.create(
     name: Faker::Commerce.product_name,

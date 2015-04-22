@@ -68,7 +68,7 @@ class BibsController < ApplicationController
   end
 
   def authenticate_owner_un_nested!
-    @bib = bib.find(params[:id])
+    @bib = Bib.find(params[:id])
     @competition = @bib.competition
 
     unless @competition.user == current_user

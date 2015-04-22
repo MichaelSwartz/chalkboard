@@ -12,47 +12,44 @@
 <table>
   <thead>
     <tr>
-      <th>Standing</th>
+      <th>Round Rank</th>
       <th>Athlete</th>
-      <% unless @round.single_route? %>
-        <th>Sends</th>
-        <th>Total Score</th>
-        <th>Flashes</th>
-        <th>Attempts*</th>
-        <% @round.routes.each do |route| %>
-          <th>
-            <%= link_to route.name, route_path(route) %>
-          </th>
-        <% end %>
-      <% else %>
+      <% if @round.single_route? %>
         <th>
           <%= link_to @round.routes.first.name,
             route_path(@round.routes.first) %>
         </th>
         <th>Attempts</th>
+      <% else %>
+        <th>tops</th>
+        <th>Round Points</th>
+        <% @round.routes.each do |route| %>
+          <th>
+            <%= link_to route.name, route_path(route) %><br>
+            Ranking Points
+          </th>
+        <% end %>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% @round.leaderboard.each do |athlete| %>
+    <% @round.leaderboard.each do |score| %>
       <tr>
-        <td><%= @round.standings[athlete] %></td>
-        <td><%= link_to athlete.name_last_first, athlete_path(athlete) %></td>
-        <% unless @round.single_route? %>
-          <td><%= @round.sends(athlete) %></td>
-          <td><%= @round.total_score(athlete) %></td>
-          <td><%= @round.flashes(athlete) %></td>
-          <td><%= @round.attempts_to_highpoints(athlete) %></td>
+        <td><%= score.score %></td>
+        <td><%= link_to score.athlete.name_last_first, athlete_path(score.athlete) %></td>
+        <% if @round.single_route? %>
+          <td><%= @round.routes.first.score_display(score.athlete) %></td>
+          <td>
+            <%= @round.routes.first.attempts_to_highpoint(score.athlete) %>
+          </td>
+        <% else %>
+          <td><%= score.tops %></td>
+          <td><%= score.score %></td>
           <% @round.routes.each do |route| %>
             <td>
-              <%= route.score_display(athlete) %> (<%= route.attempts_to_highpoint(athlete) %>)
+              <%= route.athlete_rank(score.athlete) %> (<%= route.attempts_to_highpoint(score.athlete) %>)
             </td>
           <% end %>
-        <% else %>
-          <td><%= @round.routes.first.score_display(athlete) %></td>
-          <td>
-            <%= @round.routes.first.attempts_to_highpoint(athlete) %>
-          </td>
         <% end %>
       </tr>
     <% end %>
@@ -60,7 +57,7 @@
 </table>
 
 <p>
-  <% unless @round.competition.final_round.single_route? %>
+  <% unless @round.single_route? %>
     *Sum of attempts to highpoint on each route in round
     <br>Route scores displayed as "score(attempts to highpoint)"
   <% else %>
