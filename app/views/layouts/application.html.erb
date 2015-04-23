@@ -4,7 +4,7 @@
   <title>Chalkboard</title>
   <%= stylesheet_link_tag 'application', media: 'all' %>
 
-  
+
 
   <%= csrf_meta_tags %>
 </head>
@@ -34,11 +34,17 @@
   </div>
 <%- end -%>
 
-<div class="container">
-  <%= yield %>
+<div class="container-wrapper">
+  <div class="container">
+    <%= yield %>
+  </div>
 </div>
 
 <%= javascript_include_tag 'application' %>
-<%= yield :extra_footer %>
+
+<div class="image-attribution">
+  Image courtesy of <%= link_to "Andrew Magill", "http://tinyurl.com/k6rb85y", target: '_blank' %>
+<div>
+
 </body>
 </html>

@@ -4,6 +4,7 @@
   background-image: image-url("splash_image.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: bottom;
   height: 100%;
   position: relative;
   text-align: center;
@@ -40,6 +41,7 @@
     h1 {
       color: $white;
       font-family: Rock Salt;
+      font-size: 115px;
     }
 
     h3 {
@@ -50,51 +52,5 @@
   img {
     height: auto;
     width: auto;
-  }
-
-  .search {
-    margin: 0 auto;
-    position: relative;
-    top: 125px;
-  }
-}
-
-.image-attribution {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  font-size: 10px;
-  padding: 2px;
-  color: $white;
-
-  a:link, a:visited, a:active {
-    text-decoration: none;
-    color: $white;
-  }
-}
-
-h1 {
-  font-family: Lato;
-  font-size: 100px;
-}
-
-h2 {
-  font-family: Lato;
-}
-
-.featured-airlines {
-  font-family: Lato;
-  padding-bottom: 20px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 15px;
-  text-align: center;
-
-  h2 {
-    font-weight: bold;
-  }
-
-  .button {
-    background-color: $pink;
   }
 }

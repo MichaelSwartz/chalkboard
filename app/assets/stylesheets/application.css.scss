@@ -17,9 +17,10 @@
 
  */
 
-@import "modules/topbar";
 @import "modules/landing";
+@import "modules/style";
+@import "modules/topbar";
 @import "modules/variables";
 
-@import url('//fonts.googleapis.com/css?family=Rock+Salt');
+@import url('//fonts.googleapis.com/css?family=Rock+Salt:400');
 @import url('//fonts.googleapis.com/css?family=Lato:400,700,400italic');
