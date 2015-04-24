@@ -65,4 +65,8 @@ class Round < ActiveRecord::Base
   def round_score(athlete)
     round_scores.find_by(athlete: athlete).try(:score)
   end
+
+  def round_tops(athlete)
+    round_scores.find_by(athlete: athlete).try(:tops)
+  end
 end

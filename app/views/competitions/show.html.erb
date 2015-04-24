@@ -22,9 +22,9 @@
 <% end %>
 
 <h5>
-  Rounds:&nbsp;
+  Rounds:&nbsp;&nbsp;&nbsp;&nbsp;
   <% @competition.rounds.each do |round| %>
-    <%= link_to round.name, round_path(round) %>&nbsp;
+    <%= link_to round.name, round_path(round) %>&nbsp;&nbsp;&nbsp;&nbsp;
   <% end %>
 </h5>
 
@@ -76,7 +76,10 @@
 
           <% @competition.rounds.reverse_each do |round| %>
             <% unless round == @competition.final_round %>
-              <th> <%= round.round_score(r_score.athlete) %></th>
+              <td>
+                <%= round.round_tops(r_score.athlete) %>&nbsp;&nbsp;-&nbsp;
+                <%= round.round_score(r_score.athlete) %>
+              </td>
             <% end %>
           <% end %>
         </tr>
@@ -85,7 +88,8 @@
   </table>
 
   <p>
-    Route scores displayed as "Score(Attempts to Highpoint)"
+    Route scores displayed as "Score(Attempts to Highpoint)"<br>
+    Round scores displayed as "Tops - Round Points"
   </p>
 <% else %>
   <h3>Start List</h3>
