@@ -6,7 +6,9 @@ class Round < ActiveRecord::Base
   has_many :round_scores
 
   validates :competition, presence: true
-  validates :name, presence: true
+  validates :name,
+    presence: true,
+    uniqueness: { scope: :competition }
   validates :number,
     presence: true,
     numericality: { only_integer: true }

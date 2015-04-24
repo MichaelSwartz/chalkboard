@@ -7,7 +7,9 @@ class Route < ActiveRecord::Base
   has_many :route_ranks, through: :highpoints
   has_many :athletes, through: :highpoints
 
-  validates :name, presence: true
+  validates :name,
+    presence: true,
+    uniqueness: { scope: :round }
   validates :round, presence: true
   validates :max_score,
     presence: true,
