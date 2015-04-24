@@ -1,8 +1,8 @@
-<h3><%= "#{@athlete.first_name} #{@athlete.last_name}" %></h3>
+<h2><%= "#{@athlete.first_name} #{@athlete.last_name}" %></h2>
+<br>
+<%= link_to "Edit Athlete Information", edit_athlete_path(@athlete), class: "button small" %>
 
-<%= link_to "Edit Athlete Information", edit_athlete_path(@athlete) %>
-
-<table>
+<table class="center">
   <thead>
     <tr>
       <th>Competition</th>

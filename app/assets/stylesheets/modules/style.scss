@@ -3,30 +3,31 @@
 body {
   background-image: image-url("default.jpg");
   background-repeat: no-repeat;
+  background-attachment:fixed;
   background-size: cover;
   text-align: center;
+  color: $white;
   height: 100%;
   width: 100%;
-  color: $white;
-  position: fixed;
+  font-family: Lato;
+  position: absolute;
 }
 
 .container-wrapper {
+  background-color: rgba( $black, .4 );
   text-align: center;
+  min-height: 100%;
+  height: auto;
+  width: 100%;
 }
 
 .container {
-  background-color: rgba( $black, .5 );
+  /* background-color: rgba( $black, .6 ); */
   top: 20px;
   border-radius: 25px;
-  padding: 5%;
-  /* text-align: center; */
-
+  padding: 1%, 5%, 5%, 5%;
+  text-align: center;
   display: inline-block;
-/*   margin-left: auto;
-margin-right: auto;
-clear: both; */
-
   position: relative
 }
 
@@ -34,16 +35,18 @@ clear: both; */
   text-align: right;
 }
 
-.button {
-  background-color: $green;
+.center {
+  margin-left:auto;
+  margin-right:auto;
 }
 
 h1 {
+  font-family: Rock Salt;
   text-align: center;
 }
 
 h2 {
-  font-family: Lato;
+  font-family: Rock Salt;
   font-weight: bold;
 }
 
@@ -54,9 +57,17 @@ h2 {
   font-size: 10px;
   padding: 2px;
   color: $white;
+}
 
-  a:link, a:visited, a:active {
-    text-decoration: none;
-    color: $white;
-  }
+table {
+  color: $white;
+  margin: 8px;
+  border-color: $red;
+  border-width: 1px;
+  border-radius: 8px;
+}
+
+img {
+  height: auto;
+  width: auto;
 }

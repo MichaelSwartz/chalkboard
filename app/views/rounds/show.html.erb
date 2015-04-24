@@ -1,15 +1,20 @@
-<h2><%= link_to @round.competition.name, competition_path(@round.competition) %></h2>
- - <%= @round.name %> (Round <%= @round.number %>)
+<h2>
+  <%= link_to @round.competition.name, competition_path(@round.competition) %> –
+  <%= @round.name %> (Round <%= @round.number %>)
 </h2>
-<%= @round.competition.gender %>  <%= @round.competition.division %><br>
+
+<h5>
+  <%= @round.competition.gender %>&nbsp;
+  <%= @round.competition.division %>
+</h5>
 
 <br>
 <% if current_user == @round.competition.user %>
-  <%= link_to "Add Route", new_round_route_path(@round), class: "button tiny" %>
-  <%= link_to "Edit Round", edit_round_path(@round), class: "button tiny" %>
+  <%= link_to "Add Route", new_round_route_path(@round), class: "button small" %>
+  <%= link_to "Edit Round", edit_round_path(@round), class: "button small" %>
 <% end %>
 
-<table>
+<table class="center">
   <thead>
     <tr>
       <th>Round Rank</th>
@@ -21,11 +26,11 @@
         </th>
         <th>Attempts</th>
       <% else %>
-        <th>tops</th>
+        <th>Tops</th>
         <th>Round Points</th>
         <% @round.routes.each do |route| %>
           <th>
-            <%= link_to route.name, route_path(route) %><br>
+            <h5><%= link_to route.name, route_path(route) %></h5>
             Ranking Points
           </th>
         <% end %>

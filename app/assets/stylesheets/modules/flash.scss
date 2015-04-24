@@ -1,0 +1,16 @@
+@import "variables";
+
+.flash-container {
+  text-align: center;
+  left: 35%;
+  right: 35%;
+  background-color: rgba( $dark-red, .5)
+}
+
+.alert-box {
+  position: fixed;
+  text-align: center;
+  left: 35%;
+  right: 35%;
+  background-color: rgba( $red, .5)
+}

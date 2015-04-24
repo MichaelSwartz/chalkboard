@@ -8,49 +8,27 @@
   height: 100%;
   position: relative;
   text-align: center;
+}
 
-  .top-bar-section li:not(.has-form) a:not(.button) {
-    background: none;
-    font-family: Lato;
-    line-height: 2.8125rem;
-    padding: 0 0.9375rem;
+.big-text {
+  margin: 0 auto;
+  padding: 5px;
+  position: relative;
+  text-align: center;
+  top: 120px;
+
+  h1 {
+    color: $white;
+    font-family: Rock Salt;
+    font-size: 115px;
   }
 
-  .top-bar-section ul li {
-    background: none;
+  h3 {
+    color: $white;
   }
+}
 
-  .top-bar {
-    background: none;
-  }
+.button.large {
+  font-family: Rock Salt;
 
-  .flash-container {
-    position: absolute;
-    text-align: center;
-    left: 35%;
-    right: 35%;
-  }
-
-  .big-text {
-    margin: 0 auto;
-    padding: 5px;
-    position: relative;
-    text-align: center;
-    top: 50px;
-
-    h1 {
-      color: $white;
-      font-family: Rock Salt;
-      font-size: 115px;
-    }
-
-    h3 {
-      color: $white;
-    }
-  }
-
-  img {
-    height: auto;
-    width: auto;
-  }
 }

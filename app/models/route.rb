@@ -34,7 +34,7 @@ class Route < ActiveRecord::Base
   end
 
   def athlete_highpoint(athlete)
-    highpoints.where(athlete: athlete)
+    highpoints.find_by(athlete: athlete)
   end
 
   def athlete_rank(athlete)
@@ -46,7 +46,7 @@ class Route < ActiveRecord::Base
   end
 
   def top?(athlete)
-    athlete_highpoint(athlete).try(:top?)
+    athlete_highpoint(athlete).try(:top)
   end
 
   def score(athlete)

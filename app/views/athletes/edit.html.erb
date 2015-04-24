@@ -1,7 +1,27 @@
-<h2>Edit <%= @athlete.name %><h2>
+<h2>Edit <%= @athlete.name %></h2>
 
-<%= render 'form' %>
+<%= form_for @athlete do |f| %>
+  <%= f.label :first_name, 'First Name'%>
+  <%= f.text_field :first_name %>
 
-<p>
-  <%= link_to "Delete Athlete", athlete_path(@athlete), method: :delete, data: { confirm: "Are you sure?" } %>
-</p>
+  <%= f.label :last_name, 'Last Name' %>
+  <%= f.text_field :last_name %>
+
+  <%= f.label :date_of_birth, 'Date of Birth' %>
+  <%= f.date_field :date_of_birth %>
+
+  <%= f.label :gender %>
+  <%= f.select :gender, ["Female", "Male", "Other"], include_blank: true %>
+
+  <%= f.label :team %>
+  <%= f.text_field :team %>
+
+  <%= f.submit (f.object.new_record? ? "Add Athlete" : "Update Athlete"), class: "button small" %>
+
+  <br>
+
+  <%=
+    link_to "Delete Athlete", athlete_path(@athlete), method: :delete,
+    data: { confirm: "Delete athlete?" }, class: "button small"
+  %>
+<% end %>

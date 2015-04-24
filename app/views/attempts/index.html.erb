@@ -5,11 +5,11 @@
 <%= @route.competition.gender %>  <%= @route.competition.division %><br>
 
 <h3>
-  All attempts on route: <%= link_to @route.name, route_path(@route) %><br>
+  All attempts on route: <%= link_to @route.name, route_path(@route), class: "button" %><br>
   Maximum score: <%= @route.max_score %>
 </h3>
 
-<table>
+<table class="center">
   <thead>
     <tr>
       <th>Athlete</th>

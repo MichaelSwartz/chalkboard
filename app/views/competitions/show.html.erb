@@ -1,26 +1,35 @@
 <h2><%= @competition.name %></h2>
-<%= @competition.gender %>  <%= @competition.division %><br>
-Host Gym: <%= @competition.gym %>,
-<%= @competition.start_date %> - <%= @competition.end_date %>
-<%= @competition.city %> <%= @competition.state %>
+
+<h5>
+  <%= @competition.gender %>&nbsp;
+  <%= @competition.division %>
+  <br>
+  <%= @competition.gym %>&nbsp;
+  <%= @competition.city %>&nbsp;
+  <%= @competition.state %>
+  <br>
+  <%= @competition.start_date.strftime(format='%D') %>&nbsp;
+  <% if @competition.end_date %>
+    -&nbsp;<%= @competition.end_date.strftime(format='%D') %>
+  <% end %>
+</h5>
 
 <br>
 <% if current_user == @competition.user %>
-  <%= link_to "Add Round", new_competition_round_path(@competition), class: "button tiny" %>
-  <%= link_to "Register Athletes", competition_bibs_path(@competition), class: "button tiny" %>
-  <%= link_to "Edit Competition", edit_competition_path(@competition), class: "button tiny" %>
+  <%= link_to "Add Round", new_competition_round_path(@competition), class: "button small" %>
+  <%= link_to "Register Athletes", competition_bibs_path(@competition), class: "button small" %>
+  <%= link_to "Edit Competition", edit_competition_path(@competition), class: "button small" %>
 <% end %>
 
-<ul>
+<h5>
+  Rounds:&nbsp;
   <% @competition.rounds.each do |round| %>
-    <li>
-      <%= link_to round.name, round_path(round) %>
-    </li>
+    <%= link_to round.name, round_path(round) %>&nbsp;
   <% end %>
-</ul>
+</h5>
 
 <% unless @competition.final_round.nil? %>
-  <table>
+  <table class="center">
     <thead>
       <tr>
         <th>Standing</th>
@@ -86,7 +95,7 @@ Host Gym: <%= @competition.gym %>,
 <% else %>
   <h3>Start List</h3>
 
-  <table>
+  <table class="center">
     <thead>
       <tr>
         <th>Name</th>
