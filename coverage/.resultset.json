@@ -484,6 +484,14 @@
         1,
         1,
         null,
+        null,
+        1,
+        null,
+        1,
+        5,
+        0,
+        null,
+        null,
         null
       ],
       "/Users/MJS/dropbox/projects/climbing_comps/app/models/competition.rb": [
@@ -597,12 +605,6 @@
         null,
         1,
         0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         null,
         null
       ],
@@ -834,6 +836,6 @@
         null
       ]
     },
-    "timestamp": 1429730740
+    "timestamp": 1429889392
   }
 }

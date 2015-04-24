@@ -1,5 +1,14 @@
-<h2>Edit Route: <%= @route.name %><h2>
-<h3><%= @competition.division %><%= @competition.gender %></h3>
+<h2>
+  <%= link_to @route.round.competition.name, competition_path(@route.round.competition) %> –
+  <%= link_to "#{@route.round.name} (Round #{@route.round.number})", round_path(@route.round) %>
+</h2>
+
+<h5>
+  <%= @route.round.competition.gender %>&nbsp;
+  <%= @route.round.competition.division %>
+</h5>
+
+<h2>Edit Route: <%= link_to @route.name, route_path(@route) %></h2>
 
 <div>
   <%= form_for @route do |f| %>

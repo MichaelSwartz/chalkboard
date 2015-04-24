@@ -1,4 +1,17 @@
-<h2>Record Attempt</h2>
+<h2>
+  <%= link_to @route.competition.name, competitions_path(@route.competition) %> -
+  <%= link_to "#{@route.round.name} (Round #{@route.round.number})", round_path(@route.round) %>
+
+</h2>
+
+<h5>
+  <%= @route.competition.gender %>&nbsp;
+  <%= @route.competition.division %>
+<br>
+
+<h2></h2>
+
+<h2>Record Attempt on Route: <%= link_to @route.name, route_path(@route)%></h2>
 
 <div>
   <%= form_for [@route, @attempt] do |f| %>

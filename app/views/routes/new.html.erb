@@ -1,3 +1,13 @@
+<h2>
+  <%= link_to @round.competition.name, competition_path(@round.competition) %> –
+  <%= link_to "#{@round.name} (Round #{@round.number})", round_path(@round) %>
+</h2>
+
+<h5>
+  <%= @round.competition.gender %>&nbsp;
+  <%= @round.competition.division %>
+</h5>
+
 <h2>Create New Route</h2>
 
 <div>

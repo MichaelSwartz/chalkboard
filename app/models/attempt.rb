@@ -17,7 +17,7 @@ class Attempt < ActiveRecord::Base
 
   def update_highpoint
     highpoint = Highpoint.find_or_initialize_by(athlete: athlete, route: route)
-    if highpoint.score.nil? || (score > highpoint.score)
+    if highpoint.attempt.nil? || (score > highpoint.score)
       highpoint.attempt = self
       highpoint.top = top?
       highpoint.save

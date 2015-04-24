@@ -4,11 +4,12 @@
 </h2>
 
 <h5>
-  <%= @route.round.competition.gender %>
+  <%= @route.round.competition.gender %>&nbsp;
   <%= @route.round.competition.division %>
 </h5>
 
-<h3><%= @route.name %></h3>
+<h2>Route: <%= @route.name %></h2>
+
 <h5>Maximum score: <%= @route.max_score %></h5>
 
 <% if current_user == @route.round.competition.user %>
@@ -37,5 +38,5 @@
   </tbody>
 </table>
 
-<h5><%= link_to "All Attempts", route_attempts_path(@route) %></h5>
-*Attempts to Highpoint
+<%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
+<p>* Attempts to Highpoint</p>
