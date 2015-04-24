@@ -2,14 +2,18 @@
   <%= @route.competition.name %> - <%= link_to @route.round.name, round_path(@route.round) %>
   (Round <%= @route.round.number %>)
 </h2>
-<%= @route.competition.gender %>  <%= @route.competition.division %><br>
 
-<h3>
-  All attempts on route: <%= link_to @route.name, route_path(@route) %><br>
-  Maximum score: <%= @route.max_score %>
-</h3>
+<h5>
+  <%= @route.competition.gender %>&nbsp;
+  <%= @route.competition.division %>
+<br>
 
-<table>
+<h2>Route: <%= link_to @route.name, route_path(@route)%></h2>
+
+<h4>All Attempts</h4>
+<h5>Maximum score: <%= @route.max_score %></h5>
+
+<table class="center">
   <thead>
     <tr>
       <th>Athlete</th>

@@ -1,27 +1,29 @@
 <h2>
-  <%= @route.round.competition.name %> - <%= link_to @route.round.name, round_path(@route.round) %>
-  (Round <%= @route.round.number %>)
+  <%= link_to @route.round.competition.name, competition_path(@route.round.competition) %> –
+  <%= link_to "#{@route.round.name} (Round #{@route.round.number})", round_path(@route.round) %>
 </h2>
-<%= @route.round.competition.gender %>  <%= @route.round.competition.division %><br>
 
-<h3>
-  <%= @route.name %><br>
-  Maximum score: <%= @route.max_score %>
-</h3>
+<h5>
+  <%= @route.round.competition.gender %>&nbsp;
+  <%= @route.round.competition.division %>
+</h5>
 
-<br>
+<h2>Route: <%= @route.name %></h2>
+
+<h5>Maximum score: <%= @route.max_score %></h5>
+
 <% if current_user == @route.round.competition.user %>
-  <%= link_to "Record Attempt", new_route_attempt_path(@route), class: "button tiny" %>
-  <%= link_to "Edit Route", edit_route_path(@route), class: "button tiny" %>
+  <%= link_to "Record Attempt", new_route_attempt_path(@route), class: "button small" %>
+  <%= link_to "Edit Route", edit_route_path(@route), class: "button small" %>
 <% end %>
 
-<table>
+<table class="center">
   <thead>
     <tr>
       <th>Ranking Points</th>
       <th>Athlete</th>
       <th>Route Score</th>
-      <th>Attempts to Highpoint</th>
+      <th>Attempts*</th>
     </tr>
   </thead>
   <tbody>
@@ -36,4 +38,5 @@
   </tbody>
 </table>
 
-<%= link_to "All Attempts", route_attempts_path(@route) %>
+<%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
+<p>* Attempts to Highpoint</p>

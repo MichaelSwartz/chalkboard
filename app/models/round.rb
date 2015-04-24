@@ -27,6 +27,8 @@ class Round < ActiveRecord::Base
   end
 
   # def subsequent_round_leaderboard
+  #   round_scores.order(tops: :desc, score: :asc)
+  #
   #   athletes.uniq.sort_by do |a|
   #     [-tops(a), -total_score(a), -flashes(a), attempts_to_highpoints(a), previous_round.standings[a]]
   #   end
@@ -64,9 +66,7 @@ class Round < ActiveRecord::Base
     round_scores.find_by(athlete: athlete).try(:score)
   end
 
-  # def total_score(athlete)
-  #   routes.inject(0) do |sum, route|
-  #     sum + route.score(athlete)
-  #   end
-  # end
+  def round_tops(athlete)
+    round_scores.find_by(athlete: athlete).try(:tops)
+  end
 end

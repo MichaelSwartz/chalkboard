@@ -1,26 +1,35 @@
 <h2><%= @competition.name %></h2>
-<%= @competition.gender %>  <%= @competition.division %><br>
-Host Gym: <%= @competition.gym %>,
-<%= @competition.start_date %> - <%= @competition.end_date %>
-<%= @competition.city %> <%= @competition.state %>
+
+<h5>
+  <%= @competition.gender %>&nbsp;
+  <%= @competition.division %>
+  <br>
+  <%= @competition.gym %>&nbsp;
+  <%= @competition.city %>&nbsp;
+  <%= @competition.state %>
+  <br>
+  <%= @competition.start_date.strftime(format='%D') %>&nbsp;
+  <% if @competition.end_date %>
+    -&nbsp;<%= @competition.end_date.strftime(format='%D') %>
+  <% end %>
+</h5>
 
 <br>
 <% if current_user == @competition.user %>
-  <%= link_to "Add Round", new_competition_round_path(@competition), class: "button tiny" %>
-  <%= link_to "Register Athletes", competition_bibs_path(@competition), class: "button tiny" %>
-  <%= link_to "Edit Competition", edit_competition_path(@competition), class: "button tiny" %>
+  <%= link_to "Add Round", new_competition_round_path(@competition), class: "button small" %>
+  <%= link_to "Register Athletes", competition_bibs_path(@competition), class: "button small" %>
+  <%= link_to "Edit Competition", edit_competition_path(@competition), class: "button small" %>
 <% end %>
 
-<ul>
+<h5>
+  Rounds:&nbsp;&nbsp;&nbsp;&nbsp;
   <% @competition.rounds.each do |round| %>
-    <li>
-      <%= link_to round.name, round_path(round) %>
-    </li>
+    <%= link_to round.name, round_path(round) %>&nbsp;&nbsp;&nbsp;&nbsp;
   <% end %>
-</ul>
+</h5>
 
 <% unless @competition.final_round.nil? %>
-  <table>
+  <table class="center">
     <thead>
       <tr>
         <th>Standing</th>
@@ -30,21 +39,19 @@ Host Gym: <%= @competition.gym %>,
           <th>
             <%= link_to @competition.final_round.routes.first.name,
               route_path(@competition.final_round.routes.first) %>
+            <br>Route
           </th>
-          <th>Attempts</th>
         <% else %>
           <th>Tops</th>
           <th>Round Score</th>
           <% @competition.final_round.routes.each do |route| %>
-            <th><%= link_to route.name, route_path(route) %></th>
+            <th><%= link_to route.name, route_path(route) %><br>Route</th>
           <% end %>
         <% end %>
 
         <% @competition.rounds.each do |round| %>
           <% unless round == @competition.final_round %>
-            <th>
-              <%= link_to round.name, round_path(round) %><br>
-            </th>
+            <th><%= link_to round.name, round_path(round) %><br>Round</th>
           <% end %>
         <% end %>
       </tr>
@@ -55,8 +62,10 @@ Host Gym: <%= @competition.gym %>,
           <td><%= i + 1 %></td>
           <td><%= link_to r_score.athlete.name_last_first, athlete_path(r_score.athlete) %></td>
           <% if @competition.final_round.single_route? %>
-            <td><%= @competition.final_round.routes.first.score_display(r_score.athlete) %></td>
-            <td><%= @competition.final_round.routes.first.attempts_to_highpoint(r_score.athlete) %></td>
+            <td>
+              <%= @competition.final_round.routes.first.score_display(r_score.athlete) %>
+              (<%= @competition.final_round.routes.first.attempts_to_highpoint(r_score.athlete) %>)
+            </td>
           <% else %>
             <td><%= r_score.tops %></td>
             <td><%= r_score.score %></td>
@@ -67,7 +76,10 @@ Host Gym: <%= @competition.gym %>,
 
           <% @competition.rounds.reverse_each do |round| %>
             <% unless round == @competition.final_round %>
-              <th> <%= round.round_score(r_score.athlete) %></th>
+              <td>
+                <%= round.round_tops(r_score.athlete) %>&nbsp;&nbsp;-&nbsp;
+                <%= round.round_score(r_score.athlete) %>
+              </td>
             <% end %>
           <% end %>
         </tr>
@@ -76,17 +88,13 @@ Host Gym: <%= @competition.gym %>,
   </table>
 
   <p>
-    <% unless @competition.final_round.single_route? %>
-      *Sum of attempts to highpoint on each route in round
-      <br>Route scores displayed as "score(attempts to highpoint)"
-    <% else %>
-      *Attempts to highpoint
-    <% end %>
+    Route scores displayed as "Score(Attempts to Highpoint)"<br>
+    Round scores displayed as "Tops - Round Points"
   </p>
 <% else %>
   <h3>Start List</h3>
 
-  <table>
+  <table class="center">
     <thead>
       <tr>
         <th>Name</th>

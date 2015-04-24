@@ -1,10 +1,41 @@
-<h2>Edit <%= @competition.name %><h2>
-<h3><%= @competition.division %><%= @competition.gender %></h3>
+<h2><%= @competition.name %><h2>
+<h3><%= @competition.division %>&nbsp;<%= @competition.gender %></h3>
 
-<%= render 'form' %>
+<%= form_for @competition do |f| %>
+  <%= f.label :name, 'Name*'%>
+  <%= f.text_field :name %>
 
-<p>
-  <%= link_to "Delete Competition", competition_path(@competition),
-    method: :delete,
-    data: { confirm: "This will delete competition permanently" } %>
-</p>
+  <%= f.label :start_date, 'Start Date*' %>
+  <%= f.date_field :start_date %>
+
+  <%= f.label :end_date, 'End Date' %>
+  <%= f.date_field :end_date %>
+
+  <%= f.label :gender %>
+  <%= f.select :gender, ["Female", "Male", "Mixed"], include_blank: true %>
+
+  <%= f.label :division %>
+  <%= f.text_field :division %>
+
+  <%= f.label :gym, 'Host Gym' %>
+  <%= f.text_field :gym %>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %>
+
+  <%= f.label :state %>
+  <%= f.select :state, @states, include_blank: true %>
+
+  <p>* Only name and start date are required. </p>
+
+  <%=
+    f.submit (f.object.new_record? ? "Create Competition" :
+    "Update Competition"), class: "button small"
+  %>
+  &nbsp;
+  <%=
+    link_to "Delete Competition", competition_path(@competition),
+    method: :delete, class: "button small",
+    data: { confirm: "This will delete competition permanently" }
+  %>
+<% end %>

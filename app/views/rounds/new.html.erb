@@ -1,9 +1,13 @@
-<h2>Create New Round</h2>
+<h2>
+  <%= link_to @competition.name, competition_path(@competition) %>
+</h2>
 
-<h3>
-  <%= link_to @competition.name, competition_path(@competition)  %>
-  <%= @competition.division %> - <%= @competition.gender %>
-</h3>
+<h5>
+  <%= @competition.gender %>&nbsp;
+  <%= @competition.division %>
+</h5>
+
+<h2>Create New Round</h2>
 
 <div>
   <%= form_for [@competition, @round] do |f| %>
@@ -12,8 +16,9 @@
 
     <%= f.label :number, "Round Number" %>
     <%= f.number_field :number %>
-    <p>(In a two-round competition, qualifiers would be "1" and finals would be "2")
 
-    <%= f.submit "Create Round", class: "button tiny success" %>
+    <p>(In a two-round competition, qualifiers would be "1" and finals would be "2")</p>
+
+    <%= f.submit "Create Round", class: "button small" %>
   <% end %>
 </div>

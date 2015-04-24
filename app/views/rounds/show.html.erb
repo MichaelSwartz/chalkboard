@@ -1,41 +1,53 @@
-<h2><%= link_to @round.competition.name, competition_path(@round.competition) %></h2>
- - <%= @round.name %> (Round <%= @round.number %>)
+<h2>
+  <%= link_to @round.competition.name, competition_path(@round.competition) %> –
+  <%= @round.name %> (Round <%= @round.number %>)
 </h2>
-<%= @round.competition.gender %>  <%= @round.competition.division %><br>
+
+<h5>
+  <%= @round.competition.gender %>&nbsp;
+  <%= @round.competition.division %>
+</h5>
 
 <br>
 <% if current_user == @round.competition.user %>
-  <%= link_to "Add Route", new_round_route_path(@round), class: "button tiny" %>
-  <%= link_to "Edit Round", edit_round_path(@round), class: "button tiny" %>
+  <%= link_to "Add Route", new_round_route_path(@round), class: "button small" %>
+  <%= link_to "Edit Round", edit_round_path(@round), class: "button small" %>
 <% end %>
 
-<table>
+<h5>
+  Routes:&nbsp;&nbsp;&nbsp;&nbsp;
+  <% @round.routes.each do |route| %>
+    <%= link_to route.name, route_path(route) %>&nbsp;&nbsp;&nbsp;&nbsp;
+  <% end %>
+</h5>
+
+<table class="center">
   <thead>
     <tr>
-      <th>Round Rank</th>
+      <th>Standing</th>
       <th>Athlete</th>
       <% if @round.single_route? %>
         <th>
           <%= link_to @round.routes.first.name,
             route_path(@round.routes.first) %>
         </th>
-        <th>Attempts</th>
+        <th>Attempts*</th>
       <% else %>
-        <th>tops</th>
+        <th>Tops</th>
         <th>Round Points</th>
         <% @round.routes.each do |route| %>
           <th>
-            <%= link_to route.name, route_path(route) %><br>
-            Ranking Points
+            <%= link_to route.name, route_path(route) %>
+            <br>Route
           </th>
         <% end %>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% @round.leaderboard.each do |score| %>
+    <% @round.leaderboard.each_with_index do |score, i| %>
       <tr>
-        <td><%= score.score %></td>
+        <td><%= i + 1 %></td>
         <td><%= link_to score.athlete.name_last_first, athlete_path(score.athlete) %></td>
         <% if @round.single_route? %>
           <td><%= @round.routes.first.score_display(score.athlete) %></td>
@@ -58,9 +70,8 @@
 
 <p>
   <% unless @round.single_route? %>
-    *Sum of attempts to highpoint on each route in round
-    <br>Route scores displayed as "score(attempts to highpoint)"
+    Route scores displayed as "Score(Attempts to Highpoint)"
   <% else %>
-    *Attempts to highpoint
+    * Attempts to highpoint
   <% end %>
 </p>

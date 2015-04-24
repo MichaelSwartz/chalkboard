@@ -1,3 +1,16 @@
+<h2>
+  <%= link_to @attempt.competition.name, competitions_path(@attempt.competition) %> -
+  <%= link_to @attempt.round.name, round_path(@attempt.round) %>
+  (Round <%= @attempt.round.number %>)
+</h2>
+
+<h5>
+  <%= @attempt.competition.gender %>&nbsp;
+  <%= @attempt.competition.division %>
+<br>
+
+<h2>Route: <%= link_to @route.name, route_path(@route)%></h2>
+
 <h2>Edit Attempt <%= @attempt.number %> for <%= @attempt.athlete.name %> <h2>
 
 <h5>
@@ -17,7 +30,7 @@
     <%= f.label :score %>
     <%= f.number_field :score, step: 0.01 %>
 
-    <%= f.submit "Edit Attempt", class: "button tiny success" %>
+    <%= f.submit "Edit Attempt", class: "button small" %>
   <% end %>
 </div>
 

@@ -6,36 +6,44 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav class="top-bar">
-  <ul class="title-area">
-    <li class="name">
-      <h1><a href="/">Chalkboard</a></h1>
-    </li>
-  </ul>
-
-  <section class="top-bar-section">
-    <ul class="right">
-      <%- if current_user -%>
-        <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-      <%- else -%>
-        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-        <li><%= link_to 'Sign In', new_user_session_path %></li>
-      <%- end -%>
+<div class="container-wrapper">
+  <nav class="top-bar">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/">Chalkboard</a></h1>
+      </li>
     </ul>
-  </section>
-</nav>
 
-<%- flash.each do |key, value| -%>
-  <div class="flash flash-<%= key %>">
-    <%= value %>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><%= link_to "Competitions", competitions_path %></li>
+        <li><%= link_to "Athletes", athletes_path %></li>
+        <%- if current_user -%>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+        <%- else -%>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+          <li><%= link_to 'Sign In', new_user_session_path %></li>
+        <%- end -%>
+      </ul>
+    </section>
+  </nav>
+
+  <%- flash.each do |key, value| -%>
+    <div class="flash flash-<%= key %>">
+      <%= value %>
+    </div>
+  <%- end -%>
+
+  <div class="container">
+    <%= yield %>
   </div>
-<%- end -%>
 
-<div class="container">
-  <%= yield %>
+  <div class="image-attribution">
+    Image courtesy of <%= link_to "Andrew Magill", "http://tinyurl.com/k6rb85y", target: '_blank' %>
+  <div>
 </div>
 
 <%= javascript_include_tag 'application' %>
-<%= yield :extra_footer %>
+
 </body>
 </html>

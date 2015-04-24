@@ -1,8 +1,13 @@
-<h2>Edit <%= @round.name %><h2>
-<h3>
-  <%= link_to @round.competition.name, competition_path(@round.competition)  %>
-  <%= @round.competition.division %><%= @round.competition.gender %>
-</h3>
+<h2>
+  <%= link_to @round.competition.name, competition_path(@round.competition) %>
+</h2>
+
+<h5>
+  <%= @round.competition.gender %>&nbsp;
+  <%= @round.competition.division %>
+</h5>
+
+<h2>Edit <%= link_to "#{@round.name} (Round #{@round.number})", round_path(@round) %></h2>
 
 <div>
   <%= form_for @round do |f| %>
@@ -11,8 +16,9 @@
 
     <%= f.label :number, "Round Number" %>
     <%= f.number_field :number %>
-    <p>(In a two-round competition, qualifiers would be "1" and finals would be "2")
 
-    <%= f.submit "Update Round", class: "button tiny success" %>
+    <p>(In a two-round competition, qualifiers would be "1" and finals would be "2")<p>
+
+    <%= f.submit "Update Round", class: "button small" %>
   <% end %>
 </div>
