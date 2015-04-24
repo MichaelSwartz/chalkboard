@@ -14,7 +14,11 @@
 
 /unused_code.rb
 /coverage
+
 #Ignore environment variables
 .env
+
 # Ignore uploaded files in test/development
 /public/uploads
+
+/config/database.yml

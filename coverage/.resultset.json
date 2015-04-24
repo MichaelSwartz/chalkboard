@@ -606,6 +606,10 @@
         1,
         0,
         null,
+        null,
+        1,
+        0,
+        null,
         null
       ],
       "/Users/MJS/dropbox/projects/climbing_comps/app/models/route.rb": [
@@ -836,6 +840,6 @@
         null
       ]
     },
-    "timestamp": 1429897551
+    "timestamp": 1429899594
   }
 }
