@@ -22,3 +22,8 @@
     <%= f.submit "Update Round", class: "button small" %>
   <% end %>
 </div>
+
+<p>
+  <%= link_to "Delete Round", round_path(@round), method: :delete,
+    data: { confirm: "This will delete round permanently" } %>
+</p>

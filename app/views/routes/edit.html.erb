@@ -21,3 +21,8 @@
     <%= f.submit "Update Route", class: "button small" %>
   <% end %>
 </div>
+
+<p>
+  <%= link_to "Delete Route", route_path(@route), method: :delete,
+    data: { confirm: "This will delete route permanently" } %>
+</p>
