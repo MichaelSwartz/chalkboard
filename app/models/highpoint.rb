@@ -40,8 +40,8 @@ class Highpoint < ActiveRecord::Base
     round.athletes.uniq.each do |athlete|
       round_score = RoundScore.find_or_initialize_by(athlete: athlete, round: round)
       route_count = round.routes.count
-      total_score = round.routes.inject(0.0) do |sum, route|
-        sum + (route.athlete_rank(athlete) || 0)
+      total_score = round.routes.inject(1) do |product, route|
+        product * (route.athlete_rank(athlete) || 0)
       end
       round_score.score = (total_score.to_f ** (1 / route_count.to_f)).round(2)
       round_score.tops = round.top_count(athlete)
