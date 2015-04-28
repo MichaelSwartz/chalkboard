@@ -2,13 +2,13 @@
 
 # Chalkboard
 
-Score rock climbing competitions using the latest rules. Record climbers attempts on routes organized by round. Chalkboard will automatically generate ranking scores for each route and round. Scoreboards are available for each route, round, and overall competition.
+Score rock climbing competitions using the latest rules. Record climbers' attempts on routes organized by round. Chalkboard will automatically generate ranking scores for each route and round. Scoreboards are available for each route, round, and overall competition.
 
 Currently uses rules for onsight bouldering competitions; support for sport, speed, and redpoint competitions may be added in the future.
 
-## Scoring Rules Source
+## Rules Source
 
-Uses [USA Climbing] (http://usaclimbing.net/rockcomps/resources/2014-1130%20USA%20Climbing%20Rule%20Book.pdf) rules, from November 30, 2014 update.
+Uses [USA Climbing] (http://usaclimbing.net/rockcomps/resources/2014-1130%20USA%20Climbing%20Rule%20Book.pdf) rules, November 30, 2014 version.
 
 ## Usage
 
@@ -16,9 +16,9 @@ Chalkboard is available at https://comp-chalkboard.herokuapp.com
 
 Chalkboard is still in development and will continue to change drastically. If you use this to record an actual competition, please save the results locally, as the database may need to be reset as the app changes.
 
-Sign up for an account to create your own competition. Other users will be able to see the competition, but not change it or record scores.
+Sign up for an account to create your own competition. Other users will be able to see the competition, but will not be able to change it or record scores.
 
-Follow the Athletes link in the top bar to add new athletes to the database.
+Follow the Athletes link in the top-bar to add new athletes to the database.
 
 Create a competition:
 
