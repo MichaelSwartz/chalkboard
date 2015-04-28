@@ -2,13 +2,13 @@
 
 # Chalkboard
 
-Score rock climbing competitions using the latest rules. Record climbers attempts on routes organized by round. Chalkboard will automatically generate ranking scores for each route and round. Scoreboards are available for each route, round, and overall competition.
+Score rock climbing competitions using the latest rules. Record climbers' attempts on routes organized by round. Chalkboard will automatically generate ranking scores for each route and round. Scoreboards are available for each route, round, and overall competition.
 
 Currently uses rules for onsight bouldering competitions; support for sport, speed, and redpoint competitions may be added in the future.
 
-## Scoring Rules Source
+## Rules Source
 
-Uses [USA Climbing] (http://usaclimbing.net/rockcomps/resources/2014-1130%20USA%20Climbing%20Rule%20Book.pdf) rules, from November 30, 2014 update.
+Uses [USA Climbing] (http://usaclimbing.net/rockcomps/resources/2014-1130%20USA%20Climbing%20Rule%20Book.pdf) rules, November 30, 2014 version.
 
 ## Usage
 
@@ -16,9 +16,9 @@ Chalkboard is available at https://comp-chalkboard.herokuapp.com
 
 Chalkboard is still in development and will continue to change drastically. If you use this to record an actual competition, please save the results locally, as the database may need to be reset as the app changes.
 
-Sign up for an account to create your own competition. Other users will be able to see the competition, but not change it or record scores.
+Sign up for an account to create your own competition. Other users will be able to see the competition, but will not be able to change it or record scores.
 
-Follow the Athletes link in the top bar to add new athletes to the database.
+Follow the Athletes link in the top-bar to add new athletes to the database.
 
 Create a competition:
 
@@ -30,7 +30,7 @@ Register athletes for your competition:
 
 Create rounds as needed, such as qualifier, semifinal, and final. Add routes and enter the maximum score for each route. Maximum score is determined by counting the number of hand holds, after the starting holds, that are on the route.
 
-Record attempts for each athlete in turn. Determine score on an attempt by counting the hand holds leading up to the highest hold the athlete controlled. Record every attempt, even if it is not the athlete's best, as ties on a route are awarded to whichever athlete achieved the score in fewer attempts (which Chalkboard automatically calculates). If an athlete achieves the maximum score, record it normally; Chalkboard will recognize it as a "top." Only an athlete's highest score on each route will be used.
+Record attempts for each athlete in turn. Determine score on an attempt by counting the hand holds leading up to the highest hold that the athlete controlled (touching a hold is not sufficient). Record every attempt, even if it is not the athlete's best, as ties on a route are awarded to whichever athlete achieved the score in fewer attempts (which Chalkboard automatically calculates). If an athlete achieves the maximum score, record it normally; Chalkboard will recognize it as a "top." Only an athlete's highest score on each route will be used.
 
 ![Route scoring](http://i.imgur.com/5uQPnCY.png)
 
