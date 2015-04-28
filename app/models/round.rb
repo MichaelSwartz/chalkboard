@@ -14,35 +14,8 @@ class Round < ActiveRecord::Base
     numericality: { only_integer: true }
 
   def leaderboard
-    first_round_leaderboard
-    #
-    #
-    # if first_round?
-    #   first_round_leaderboard
-    # else
-    #   subsequent_round_leaderboard
-    # end
-  end
-
-  def first_round_leaderboard
     round_scores.order(tops: :desc, score: :asc)
   end
-
-  # def subsequent_round_leaderboard
-  #   round_scores.order(tops: :desc, score: :asc)
-  #
-  #   athletes.uniq.sort_by do |a|
-  #     [-tops(a), -total_score(a), -flashes(a), attempts_to_highpoints(a), previous_round.standings[a]]
-  #   end
-  # end
-
-  # def standings
-  #   standings = {}
-  #   leaderboard.each_with_index do |athlete, index|
-  #     standings[athlete] = index + 1
-  #   end
-  #   standings
-  # end
 
   def single_route?
     routes.count == 1
