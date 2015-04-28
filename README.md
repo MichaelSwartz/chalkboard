@@ -22,17 +22,17 @@ Follow the Athletes link in the top bar to add new athletes to the database.
 
 Create a competition:
 
-!(http://i.imgur.com/btXW2GD.jpg)
+![Create a new competition](http://i.imgur.com/btXW2GD.jpg)
 
 Register athletes for your competition:
 
-!(http://i.imgur.com/CjFQ3A5.png)
+![Register athletes](http://i.imgur.com/CjFQ3A5.png)
 
 Create rounds as needed, such as qualifier, semifinal, and final. Add routes and enter the maximum score for each route. Maximum score is determined by counting the number of hand holds, after the starting holds, that are on the route.
 
 Record attempts for each athlete in turn. Determine score on an attempt by counting the hand holds leading up to the highest hold the athlete controlled. Record every attempt, even if it is not the athlete's best, as ties on a route are awarded to whichever athlete achieved the score in fewer attempts (which Chalkboard automatically calculates). If an athlete achieves the maximum score, record it normally; Chalkboard will recognize it as a "top." Only an athlete's highest score on each route will be used.
 
-!(http://i.imgur.com/5uQPnCY.png)
+![Route scoring](http://i.imgur.com/5uQPnCY.png)
 
 Route rank and round rank are determined as follows, from the [USA Climbing] (http://usaclimbing.net/rockcomps/resources/2014-1130%20USA%20Climbing%20Rule%20Book.pdf) rulebook:
 
@@ -50,4 +50,4 @@ Route rank and round rank are determined as follows, from the [USA Climbing] (ht
   R2 = Ranking Points on second route.
   R3 = Ranking Points on third route (included only if applicable)."
 
-!(http://i.imgur.com/mITKg7e.png)
+![Round scoring](http://i.imgur.com/mITKg7e.png)
