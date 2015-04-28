@@ -30,7 +30,7 @@ Register athletes for your competition:
 
 Create rounds as needed, such as qualifier, semifinal, and final. Add routes and enter the maximum score for each route. Maximum score is determined by counting the number of hand holds, after the starting holds, that are on the route.
 
-Record attempts for each athlete in turn. Determine score on an attempt by counting the hand holds leading up to the highest hold the athlete controlled. Record every attempt, even if it is not the athlete's best, as ties on a route are awarded to whichever athlete achieved the score in fewer attempts (which Chalkboard automatically calculates). If an athlete achieves the maximum score, record it normally; Chalkboard will recognize it as a "top." Only an athlete's highest score on each route will be used.
+Record attempts for each athlete in turn. Determine score on an attempt by counting the hand holds leading up to the highest hold that the athlete controlled (touching a hold is not sufficient). Record every attempt, even if it is not the athlete's best, as ties on a route are awarded to whichever athlete achieved the score in fewer attempts (which Chalkboard automatically calculates). If an athlete achieves the maximum score, record it normally; Chalkboard will recognize it as a "top." Only an athlete's highest score on each route will be used.
 
 ![Route scoring](http://i.imgur.com/5uQPnCY.png)
 
