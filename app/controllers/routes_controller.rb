@@ -1,10 +1,8 @@
 class RoutesController < ApplicationController
   before_action :authenticate_user!, only:
     [:new, :create, :edit, :update, :destroy]
-  before_action :authenticate_owner_nested!, only:
-    [:new, :create]
-  before_action :authenticate_owner_un_nested!, only:
-    [:edit, :update, :destroy]
+  before_action :authenticate_owner!, only:
+    [:new, :create, :edit, :update, :destroy]
 
   def index
     @round = Round.find(params[:round_id])
@@ -35,8 +33,6 @@ class RoutesController < ApplicationController
 
   def edit
     @route = Route.find(params[:id])
-    @round = @route.round
-    @competition = @round.competition
   end
 
   def update
@@ -53,11 +49,10 @@ class RoutesController < ApplicationController
 
   def destroy
     @route = Route.find(params[:id])
-    @round = @route.round
 
     if @route.destroy
       flash[:alert] = "Route deleted"
-      redirect_to round_path(@round)
+      redirect_to round_path(@route.round)
     else
       flash[:alert] = @route.errors.full_messages.join(". ")
       render :show
@@ -66,24 +61,11 @@ class RoutesController < ApplicationController
 
   protected
 
-  def authenticate_owner_nested!
-    #horizon authentication methods
-    @round = Round.find(params[:round_id])
-    @competition = @round.competition
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to round_path(@round)
-    end
-  end
-
-  def authenticate_owner_un_nested!
-    @route = Route.find(params[:id])
-    @competition = @route.round.competition
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to route_path(@route)
+  def owner
+    if params[:round_id]
+      Round.find(params[:round_id]).competition.user
+    else
+      Route.find(params[:id]).round.competition.user
     end
   end
 

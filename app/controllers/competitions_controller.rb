@@ -61,13 +61,8 @@ class CompetitionsController < ApplicationController
 
   protected
 
-  def authenticate_owner!
-    @competition = Competition.find(params[:id])
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to competition_path(@competition)
-    end
+  def owner
+    Competition.find(params[:id]).user
   end
 
   def competition_params

@@ -1,10 +1,8 @@
 class AttemptsController < ApplicationController
   before_action :authenticate_user!, only:
     [:new, :create, :edit, :update, :destroy]
-  before_action :authenticate_owner_nested!, only:
-    [:new, :create]
-  before_action :authenticate_owner_un_nested!, only:
-    [:edit, :update, :destroy]
+  before_action :authenticate_owner!, only:
+    [:new, :create, :edit, :update, :destroy]
 
   def index
     @route = Route.includes(:attempts, :round).find(params[:route_id])
@@ -58,23 +56,11 @@ class AttemptsController < ApplicationController
 
   protected
 
-  def authenticate_owner_nested!
-    @route = Route.find(params[:route_id])
-    @competition = @route.round.competition
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to route_path(@route)
-    end
-  end
-
-  def authenticate_owner_un_nested!
-    @route = Attempt.find(params[:id]).route
-    @competition = @route.round.competition
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to route_path(@route)
+  def owner
+    if params[:route_id]
+      Route.find(params[:route_id]).round.competition.user
+    else
+      Attempt.find(params[:id]).route.round.competition.user
     end
   end
 
