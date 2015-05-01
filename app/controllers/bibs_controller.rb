@@ -1,10 +1,8 @@
 class BibsController < ApplicationController
   before_action :authenticate_user!, only:
     [:index, :create, :edit, :update, :destroy]
-  before_action :authenticate_owner_nested!, only:
-    [:index, :create]
-  before_action :authenticate_owner_un_nested!, only:
-    [:edit, :update, :destroy]
+  before_action :authenticate_owner!, only:
+    [:new, :create, :edit, :update, :destroy]
 
   def index
     @competition = Competition.find(params[:competition_id])

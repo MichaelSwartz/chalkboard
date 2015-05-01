@@ -9,7 +9,7 @@
   <%= @attempt.competition.division %>
 <br>
 
-<h2>Route: <%= link_to @route.name, route_path(@route)%></h2>
+<h2>Route: <%= link_to @attempt.route.name, route_path(@attempt.route)%></h2>
 
 <h2>Edit Attempt <%= @attempt.number %> for <%= @attempt.athlete.name %> <h2>
 
@@ -24,7 +24,7 @@
   <%= form_for @attempt do |f| %>
     <%= f.label :athlete_id, "Athlete" %>
     <%= f.collection_select :athlete_id,
-      @route.round.competition.athletes.order(:last_name),
+      @attempt.route.round.competition.athletes.order(:last_name),
       :id, :name_last_first, include_blank: true %>
 
     <%= f.label :score %>
@@ -39,4 +39,4 @@
     data: { confirm: "This will delete attempt permanently" } %>
 </p>
 
-<%= link_to "Back to All Attempts", route_attempts_path(@route) %>
+<%= link_to "Back to All Attempts", route_attempts_path(@attempt.route) %>

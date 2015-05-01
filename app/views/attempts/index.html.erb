@@ -26,15 +26,17 @@
   </thead>
   <tbody>
     <% @route.attempts.each do |attempt| %>
-      <tr class=<% attempt.class %>>
-        <td><%= attempt.athlete.name %></td>
-        <td><%= attempt.score %></td>
-        <td><%= attempt.number %></td>
+      <% unless attempt.number == 0 %>
+        <tr class=<% attempt.class %>>
+          <td><%= attempt.athlete.name %></td>
+          <td><%= attempt.score %></td>
+          <td><%= attempt.number %></td>
 
-        <% if current_user == @route.round.competition.user %>
-          <td><%= link_to "Edit Attempt", edit_attempt_path(attempt) %></td>
-        <% end %>
-      </tr>
+          <% if current_user == @route.round.competition.user %>
+            <td><%= link_to "Edit Attempt", edit_attempt_path(attempt) %></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
