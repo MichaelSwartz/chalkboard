@@ -56,22 +56,11 @@ class BibsController < ApplicationController
 
   protected
 
-  def authenticate_owner_nested!
-    @competition = Competition.find(params[:competition_id])
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to competition_path(@competition)
-    end
-  end
-
-  def authenticate_owner_un_nested!
-    @bib = Bib.find(params[:id])
-    @competition = @bib.competition
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to competition_path(@competition)
+  def owner
+    if params[:competition_id]
+      Competition.find(params[:competition_id]).user
+    else
+      Bib.find(params[:id]).competition.user
     end
   end
 

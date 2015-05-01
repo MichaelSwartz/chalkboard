@@ -1,10 +1,8 @@
 class RoundsController < ApplicationController
   before_action :authenticate_user!, only:
     [:new, :create, :edit, :update, :destroy]
-  before_action :authenticate_owner_nested!, only:
-    [:new, :create]
-  before_action :authenticate_owner_un_nested!, only:
-    [:edit, :update, :destroy]
+  before_action :authenticate_owner!, only:
+    [:new, :create, :edit, :update, :destroy]
 
   def index
     @competition = Competition.find(params[:competition_id])
@@ -39,7 +37,6 @@ class RoundsController < ApplicationController
 
   def update
     @round = Round.find(params[:id])
-    @competition = @round.competition
 
     if @round.update(round_params)
       flash[:notice] = 'Round updated'
@@ -52,11 +49,10 @@ class RoundsController < ApplicationController
 
   def destroy
     @round = Round.find(params[:id])
-    @competition = @round.competition
 
     if @round.destroy
       flash[:alert] = "Round deleted"
-      redirect_to competition_path(@competition)
+      redirect_to competition_path(@round.competition)
     else
       flash[:alert] = @round.errors.full_messages.join(". ")
       render :show
@@ -71,6 +67,14 @@ class RoundsController < ApplicationController
     unless @competition.user == current_user
       flash[:alert] = "Access restricted to competition creator"
       redirect_to competition_path(@competition)
+    end
+  end
+
+  def owner
+    if params[:competition_id]
+      Competition.find(params[:competition_id]).user
+    else
+      Round.find(params[:id]).competition.user
     end
   end
 
