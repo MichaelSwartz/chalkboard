@@ -6,16 +6,16 @@ Rails.application.routes.draw do
 
   resources :competitions do
     resources :bibs, only: [:index, :create]
-    resources :rounds, only: [:new, :create, :index]
+    resources :rounds, only: [:new, :create]
   end
 
   resources :bibs, only: [:edit, :update, :destroy]
 
-  resources :rounds, except: [:new] do
+  resources :rounds, only: [:show, :edit, :update, :destroy] do
     resources :routes, only: [:new, :create]
   end
 
-  resources :routes, except: [:new, :create, :index] do
+  resources :routes, only: [:show, :edit, :update, :destroy] do
     resources :attempts, only: [:new, :create, :index]
   end
 

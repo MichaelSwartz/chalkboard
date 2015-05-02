@@ -11,7 +11,8 @@ class Round < ActiveRecord::Base
     uniqueness: { scope: :competition }
   validates :number,
     presence: true,
-    numericality: { only_integer: true }
+    numericality: { only_integer: true },
+    uniqueness: { scope: :competition }
 
   def leaderboard
     round_scores.order(tops: :desc, score: :asc)
