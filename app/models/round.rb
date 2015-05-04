@@ -57,7 +57,7 @@ class Round < ActiveRecord::Base
       end
 
       round_score = round_scores.find_or_initialize_by(athlete: athlete)
-      round_score.score = (total_score.to_f ** (1 / route_count.to_f)).round(2)
+      round_score.score = (total_score.to_f**(1 / route_count.to_f)).round(2)
       round_score.tops = top_count(athlete)
       round_score.save
     end
