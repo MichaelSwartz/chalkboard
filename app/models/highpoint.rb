@@ -56,7 +56,6 @@ class Highpoint < ActiveRecord::Base
     route.highpoints.sort_by { |a| [-a.score, a.number] }
   end
 
-
   def update_round_scores
     round.athletes.uniq.each do |athlete|
       round_score = RoundScore.find_or_initialize_by(athlete: athlete, round: round)
