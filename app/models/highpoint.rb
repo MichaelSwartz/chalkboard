@@ -14,27 +14,48 @@ class Highpoint < ActiveRecord::Base
   validates :route, presence: true
 
   after_save :update_route_leaderboard
-  after_save :update_round_scores
 
   def update_route_leaderboard
-    hash = {}
-    highpoints = route.highpoints.sort_by { |a| [-a.score, a.number] }
-    highpoints.each_with_index do |highpoint, i|
-      hash[[highpoint.score, highpoint.number]] ||= []
-      hash[[highpoint.score, highpoint.number]] << [highpoint, i + 1]
+    ties_hash.each do |_, ties|
+      route_rank = determine_route_rank(ties)
+      save_ranks(ties, route_rank)
     end
-    hash.each do |_, array|
-      ties_count = array.count
-      total_ranks = array.inject(0) { |sum, inner_array| sum + inner_array[1] }
-      route_rank = total_ranks.to_f / ties_count.to_f
-      array.each do |inner_array|
-        rank = RouteRank.find_or_initialize_by(athlete: inner_array[0].athlete, route: route)
-        rank.rank = route_rank
-        rank.highpoint = inner_array[0]
-        rank.save!
-      end
+
+    update_round_scores
+  end
+
+  def determine_route_rank(ties)
+    ties_count = ties.count
+    tied_ranks_sum = 0
+    ties.each { |_, rank| tied_ranks_sum += rank }
+    tied_ranks_sum.to_f / ties_count.to_f
+  end
+
+  def save_ranks(ties, route_rank)
+    ties.each do |highpoint, _|
+      rank = RouteRank.find_or_initialize_by(
+        athlete: highpoint.athlete, route: route)
+      rank.rank = route_rank
+      rank.highpoint = highpoint
+      rank.save!
     end
   end
+
+  def ties_hash
+    ties = {}
+    highpoints = sort_highpoints
+
+    highpoints.each_with_index do |highpoint, i|
+      ties[[highpoint.score, highpoint.number]] ||= {}
+      ties[[highpoint.score, highpoint.number]][highpoint] = i + 1
+    end
+    ties
+  end
+
+  def sort_highpoints
+    route.highpoints.sort_by { |a| [-a.score, a.number] }
+  end
+
 
   def update_round_scores
     round.athletes.uniq.each do |athlete|
