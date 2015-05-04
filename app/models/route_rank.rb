@@ -12,4 +12,10 @@ class RouteRank < ActiveRecord::Base
     numericality: true
   validates :athlete, presence: true
   validates :route, presence: true
+
+  after_save :record_round_scores
+
+  def record_round_scores
+    round.update_scores
+  end
 end

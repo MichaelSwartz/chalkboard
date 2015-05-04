@@ -4,11 +4,6 @@ class RoundsController < ApplicationController
   before_action :authenticate_owner!, only:
     [:new, :create, :edit, :update, :destroy]
 
-  def index
-    @competition = Competition.find(params[:competition_id])
-    redirect_to competition_path(@competition)
-  end
-
   def show
     @round = Round.includes(:routes, :attempts).find(params[:id])
   end
