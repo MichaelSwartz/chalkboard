@@ -24,9 +24,7 @@ class Route < ActiveRecord::Base
       attempt.update_highpoint
     end
 
-    @new = true
-    update_ranks
-    @new = false
+    @defaults_set = true
   end
 
   def leaderboard
@@ -70,8 +68,6 @@ class Route < ActiveRecord::Base
       rank = determine_route_rank(ties)
       save_ranks(ties, rank)
     end
-
-    update_round_scores
   end
 
   def determine_route_rank(ties)
@@ -103,24 +99,11 @@ class Route < ActiveRecord::Base
   end
 
   def sort_highpoints
-    if @new == true
+    unless @defaults_set == true
       all_highpoints = Highpoint.where(route: self)
     else
       all_highpoints = highpoints
     end
     all_highpoints.sort_by { |a| [-a.score, a.number] }
-  end
-
-  def update_round_scores
-    round.athletes.uniq.each do |athlete|
-      round_score = RoundScore.find_or_initialize_by(athlete: athlete, round: round)
-      route_count = round.routes.count
-      total_score = round.routes.inject(1) do |product, route|
-        product * (route.athlete_rank(athlete) || 0)
-      end
-      round_score.score = (total_score.to_f ** (1 / route_count.to_f)).round(2)
-      round_score.tops = round.top_count(athlete)
-      round_score.save
-    end
   end
 end
