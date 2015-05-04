@@ -4,11 +4,6 @@ class RoutesController < ApplicationController
   before_action :authenticate_owner!, only:
     [:new, :create, :edit, :update, :destroy]
 
-  def index
-    @round = Round.find(params[:round_id])
-    redirect_to round_path(@round)
-  end
-
   def show
     @route = Route.includes(:highpoints, :round).find(params[:id])
   end

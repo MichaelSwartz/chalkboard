@@ -8,7 +8,8 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    @competition = Competition.includes(:rounds, :routes, :attempts).find(params[:id])
+    @competition = Competition.includes(
+      :rounds, :routes, :attempts).find(params[:id])
   end
 
   def new

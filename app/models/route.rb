@@ -99,10 +99,10 @@ class Route < ActiveRecord::Base
   end
 
   def sort_highpoints
-    unless @defaults_set == true
-      all_highpoints = Highpoint.where(route: self)
-    else
+    if @defaults_set == true
       all_highpoints = highpoints
+    else
+      all_highpoints = Highpoint.where(route: self) # updates eager-loaded data
     end
     all_highpoints.sort_by { |a| [-a.score, a.number] }
   end
