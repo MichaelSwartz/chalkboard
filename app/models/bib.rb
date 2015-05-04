@@ -8,9 +8,9 @@ class Bib < ActiveRecord::Base
   validates :number, uniqueness: { scope: :competition },
     allow_nil: true, allow_blank: true
 
-  after_save :set_default_attempts
+  after_save :set_default_attempts_for_bib
 
-  def set_default_attempts
+  def set_default_attempts_for_bib
     competition.routes.each do |route|
       athlete.attempts.create(route: route, score: 0)
     end

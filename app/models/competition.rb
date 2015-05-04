@@ -23,20 +23,4 @@ class Competition < ActiveRecord::Base
             'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM',
             'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX',
             'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY']
-
-  # def ordered_rounds
-  #   rounds.order(:number)
-  # end
-
-#   def first_round
-#     ordered_rounds.first
-#   end
-#
-#   def previous_round(round)
-#     ordered_rounds[round_index(round) - 1]
-#   end
-#
-#   def round_index(round)
-#     ordered_rounds.index(round)
-#   end
 end

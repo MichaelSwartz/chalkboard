@@ -19,7 +19,7 @@ class Round < ActiveRecord::Base
   end
 
   def single_route?
-    routes.count == 1
+    route_count == 1
   end
 
   def first_round?
@@ -44,5 +44,22 @@ class Round < ActiveRecord::Base
 
   def round_tops(athlete)
     round_scores.find_by(athlete: athlete).try(:tops)
+  end
+
+  def route_count
+    routes.count
+  end
+
+  def update_scores
+    athletes.uniq.each do |athlete|
+      total_score = routes.inject(1) do |product, route|
+        product * (route.athlete_rank(athlete) || 0) # for when setting defaults
+      end
+
+      round_score = round_scores.find_or_initialize_by(athlete: athlete)
+      round_score.score = (total_score.to_f ** (1 / route_count.to_f)).round(2)
+      round_score.tops = top_count(athlete)
+      round_score.save
+    end
   end
 end
