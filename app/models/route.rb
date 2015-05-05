@@ -64,6 +64,11 @@ class Route < ActiveRecord::Base
   end
 
   def update_ranks
+    rerank_route
+    round.update_scores
+  end
+
+  def rerank_route
     ties_hash.each do |_, ties|
       rank = determine_route_rank(ties)
       save_ranks(ties, rank)

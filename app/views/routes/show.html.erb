@@ -13,8 +13,24 @@
 <h5>Maximum score: <%= @route.max_score %></h5>
 
 <% if current_user == @route.round.competition.user %>
-  <%= link_to "Record Attempt", new_route_attempt_path(@route), class: "button small" %>
-  <%= link_to "Edit Route", edit_route_path(@route), class: "button small" %>
+  <div>
+    <%= form_for [@route, @attempt] do |f| %>
+      <%= f.label :athlete_id, "Athlete" %>
+      <%= f.select :athlete_id,
+        options_from_collection_for_select(
+          @route.competition.athletes.order(:last_name),
+          :id,
+          :name_last_first,
+          @athlete.try(:id)
+        ), include_blank: true
+      %>
+
+      <%= f.label :score %>
+      <%= f.number_field :score, step: 0.01 %>
+
+      <%= f.submit "Record Attempt", class: "button small" %>
+    <% end %>
+  </div>
 <% end %>
 
 <table class="center">
@@ -38,5 +54,10 @@
   </tbody>
 </table>
 
-<%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
 <p>* Attempts to Highpoint</p>
+
+<%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
+
+<% if current_user == @route.round.competition.user %>
+  <%= link_to "Edit Route", edit_route_path(@route), class: "button small" %>
+<% end %>

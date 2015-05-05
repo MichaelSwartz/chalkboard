@@ -53,7 +53,8 @@ class Round < ActiveRecord::Base
   def update_scores
     athletes.uniq.each do |athlete|
       total_score = routes.inject(1) do |product, route|
-        product * (route.athlete_rank(athlete) || 0) # for when setting defaults
+        product * (route.athlete_rank(athlete) || 0)
+        # '|| 0' prevents errors when setting defaults
       end
 
       round_score = round_scores.find_or_initialize_by(athlete: athlete)
