@@ -12,7 +12,7 @@ feature 'Record Attempt' do
   context 'as an authorized user' do
     scenario 'authorized user records attempt' do
       sign_in_as user
-      visit new_route_attempt_path(route)
+      visit route_path(route)
 
       select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "25.45"
@@ -26,7 +26,9 @@ feature 'Record Attempt' do
 
     scenario 'user fails to record attempt with insufficient info' do
       sign_in_as user
-      visit new_route_attempt_path(route)
+      visit route_path(route)
+
+      select '', from: "Athlete"
 
       click_on "Record Attempt"
 
@@ -36,7 +38,7 @@ feature 'Record Attempt' do
 
     scenario 'user fails to record attempt with invalid input' do
       sign_in_as user
-      visit new_route_attempt_path(route)
+      visit route_path(route)
 
       select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "Black 50"
@@ -52,11 +54,6 @@ feature 'Record Attempt' do
       visit route_path(route)
 
       expect(page).to_not have_link("Record Attempt")
-
-      visit new_route_attempt_path(route)
-
-      expect(page).to have_content("You need to sign in or sign up before continuing")
-      expect(page).to_not have_content("Record Attempt")
     end
   end
 
@@ -65,11 +62,6 @@ feature 'Record Attempt' do
       sign_in_as user2
       visit route_path(route)
 
-      expect(page).to_not have_link("Record Attempt")
-
-      visit new_route_attempt_path(route)
-
-      expect(page).to have_content("Access restricted to competition creator")
       expect(page).to_not have_link("Record Attempt")
     end
   end

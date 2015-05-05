@@ -17,7 +17,7 @@ class AttemptsController < ApplicationController
       redirect_to route_path(@route)
     else
       flash[:alert] = @attempt.errors.full_messages.join(". ")
-      render :new
+      redirect_to route_path(@route)
     end
   end
 
