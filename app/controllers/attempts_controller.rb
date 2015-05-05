@@ -1,16 +1,11 @@
 class AttemptsController < ApplicationController
   before_action :authenticate_user!, only:
-    [:new, :create, :edit, :update, :destroy]
+    [:create, :edit, :update, :destroy]
   before_action :authenticate_owner!, only:
-    [:new, :create, :edit, :update, :destroy]
+    [:create, :edit, :update, :destroy]
 
   def index
     @route = Route.includes(:attempts, :round).find(params[:route_id])
-  end
-
-  def new
-    @route = Route.includes(:round).find(params[:route_id])
-    @attempt = Attempt.new
   end
 
   def create
