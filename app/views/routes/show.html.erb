@@ -21,7 +21,7 @@
           @route.competition.athletes.order(:last_name),
           :id,
           :name_last_first,
-          @athlete.try(:id)
+          session[:athlete_id]
         ), include_blank: true
       %>
 

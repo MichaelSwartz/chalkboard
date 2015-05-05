@@ -11,6 +11,7 @@ class AttemptsController < ApplicationController
   def create
     @route = Route.find(params[:route_id])
     @attempt = @route.attempts.new(attempt_params)
+    session[:athlete_id] = @attempt.athlete_id
 
     if @attempt.save
       flash[:notice] = 'Attempt recorded'

@@ -7,7 +7,7 @@ class RoutesController < ApplicationController
   def show
     @route = Route.includes(:highpoints, :round, :attempts).find(params[:id])
     @attempt = Attempt.new
-    @athlete = @route.attempts.order(:created_at).last.athlete
+    # @athlete = @route.attempts.order(:created_at).last.athlete
   end
 
   def new
