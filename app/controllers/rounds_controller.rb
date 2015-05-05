@@ -56,30 +56,11 @@ class RoundsController < ApplicationController
 
   protected
 
-  def authenticate_owner_nested!
-    @competition = Competition.find(params[:competition_id])
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to competition_path(@competition)
-    end
-  end
-
   def owner
     if params[:competition_id]
       Competition.find(params[:competition_id]).user
     else
       Round.find(params[:id]).competition.user
-    end
-  end
-
-  def authenticate_owner_un_nested!
-    @round = Round.find(params[:id])
-    @competition = @round.competition
-
-    unless @competition.user == current_user
-      flash[:alert] = "Access restricted to competition creator"
-      redirect_to round_path(@round)
     end
   end
 

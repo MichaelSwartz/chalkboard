@@ -1,28 +1,24 @@
 class AttemptsController < ApplicationController
   before_action :authenticate_user!, only:
-    [:new, :create, :edit, :update, :destroy]
+    [:create, :edit, :update, :destroy]
   before_action :authenticate_owner!, only:
-    [:new, :create, :edit, :update, :destroy]
+    [:create, :edit, :update, :destroy]
 
   def index
     @route = Route.includes(:attempts, :round).find(params[:route_id])
   end
 
-  def new
-    @route = Route.includes(:round).find(params[:route_id])
-    @attempt = Attempt.new
-  end
-
   def create
     @route = Route.find(params[:route_id])
     @attempt = @route.attempts.new(attempt_params)
+    session[:athlete_id] = @attempt.athlete_id
 
     if @attempt.save
       flash[:notice] = 'Attempt recorded'
       redirect_to route_path(@route)
     else
       flash[:alert] = @attempt.errors.full_messages.join(". ")
-      render :new
+      redirect_to route_path(@route)
     end
   end
 

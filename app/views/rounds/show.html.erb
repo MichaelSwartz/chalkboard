@@ -59,7 +59,10 @@
           <td><%= score.score %></td>
           <% @round.routes.each do |route| %>
             <td>
-              <%= route.athlete_rank(score.athlete) %> (<%= route.attempts_to_highpoint(score.athlete) %>)
+              <%= route.athlete_rank(score.athlete) %>
+              <% if route.top?(score.athlete) %>
+                (T)
+              <% end %>
             </td>
           <% end %>
         <% end %>
@@ -69,9 +72,9 @@
 </table>
 
 <p>
-  <% unless @round.single_route? %>
-    Route scores displayed as "Score(Attempts to Highpoint)"
-  <% else %>
+  <% if @round.single_route? %>
     * Attempts to highpoint
+  <% else %>
+    (T) indicates top (climber achieved maximum score)
   <% end %>
 </p>
