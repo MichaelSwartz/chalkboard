@@ -83,8 +83,10 @@ a:hover {
 }
 
 form {
-  text-align: left;
+  border-color: $red;
+  border-width: 1px;
+  border-radius: 8px;
   color: $white;
   margin: auto;
-  width: 400px;
+  text-align: center;
 }

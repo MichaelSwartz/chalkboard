@@ -3,61 +3,80 @@
   <%= link_to "#{@route.round.name} (Round #{@route.round.number})", round_path(@route.round) %>
 </h2>
 
-<h5>
-  <%= @route.round.competition.gender %>&nbsp;
-  <%= @route.round.competition.division %>
-</h5>
+<div class="row">
+  <div class="small-2 columns side-nav">
+    <ul class="side-nav">
+      <% if current_user == @route.round.competition.user %>
+        <li><h4><strong>Record Attempts</strong></h4></li>
+        <li>
+          <div>
+            <%= form_for [@route, @attempt] do |f| %>
+              <%= f.label :athlete_id, "Athlete" %>
+              <%= f.select :athlete_id,
+                options_from_collection_for_select(
+                  @route.competition.athletes.order(:last_name),
+                  :id,
+                  :name_last_first,
+                  session[:athlete_id]
+                ), include_blank: true
+              %>
 
-<h2>Route: <%= @route.name %></h2>
+              <%= f.label :score %>
+              <%= f.number_field :score, step: 0.01 %>
 
-<h5>Maximum score: <%= @route.max_score %></h5>
+              <%= f.submit "Submit", class: "button small" %>
+            <% end %>
+          </div>
+        </li>
+      <% else %>
+        <br><br><br>
+      <% end %>
+      <li>
+        <%=
+          link_to "Overall",
+          competition_path(@route.round.competition),
+          class: "button small success"
+        %>
+      </li>
+      <li>
+        <%=
+          link_to "Round",
+          round_path(@route.round), class: "button small success"
+        %>
+      </li>
+    </ul>
+  </div>
+  <div class="small-10 columns">
+    <h3>Route: <%= @route.name %></h3>
+    <h5>Maximum score: <%= @route.max_score %></h5>
+    <table class="center">
+      <thead>
+        <tr>
+          <th>Ranking Points</th>
+          <th>Athlete</th>
+          <th>Route Score</th>
+          <th>Attempts*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @route.leaderboard.each do |r_rank| %>
+          <tr class=<% r_rank.highpoint.css_class %>>
+            <td><%= r_rank.rank %></td>
+            <td><%= link_to r_rank.athlete.name_last_first, athlete_path(r_rank.athlete) %></td>
+            <td><%= r_rank.highpoint.score_display %></td>
+            <td><%= r_rank.number %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<% if current_user == @route.round.competition.user %>
-  <div>
-    <%= form_for [@route, @attempt] do |f| %>
-      <%= f.label :athlete_id, "Athlete" %>
-      <%= f.select :athlete_id,
-        options_from_collection_for_select(
-          @route.competition.athletes.order(:last_name),
-          :id,
-          :name_last_first,
-          session[:athlete_id]
-        ), include_blank: true
-      %>
+    <p>* Attempts to Highpoint</p>
 
-      <%= f.label :score %>
-      <%= f.number_field :score, step: 0.01 %>
+    <%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
 
-      <%= f.submit "Record Attempt", class: "button small" %>
+    <% if current_user == @route.round.competition.user %>
+      &nbsp;&nbsp;
+      <%= link_to "Edit Route", edit_route_path(@route), class: "button small" %>
     <% end %>
   </div>
-<% end %>
-
-<table class="center">
-  <thead>
-    <tr>
-      <th>Ranking Points</th>
-      <th>Athlete</th>
-      <th>Route Score</th>
-      <th>Attempts*</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @route.leaderboard.each do |r_rank| %>
-      <tr class=<% r_rank.highpoint.css_class %>>
-        <td><%= r_rank.rank %></td>
-        <td><%= link_to r_rank.athlete.name_last_first, athlete_path(r_rank.athlete) %></td>
-        <td><%= r_rank.highpoint.score_display %></td>
-        <td><%= r_rank.number %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<p>* Attempts to Highpoint</p>
-
-<%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
-
-<% if current_user == @route.round.competition.user %>
-  <%= link_to "Edit Route", edit_route_path(@route), class: "button small" %>
-<% end %>
+</div>

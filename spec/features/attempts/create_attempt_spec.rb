@@ -17,7 +17,7 @@ feature 'Record Attempt' do
       select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "25.45"
 
-      click_on "Record Attempt"
+      click_on "Submit"
 
       expect(page).to have_content("Attempt recorded")
       expect(page).to have_content(athlete.last_name)
@@ -30,7 +30,7 @@ feature 'Record Attempt' do
 
       select '', from: "Athlete"
 
-      click_on "Record Attempt"
+      click_on "Submit"
 
       expect(page).to have_content("Athlete can't be blank.")
       expect(page).to have_content("Score can't be blank.")
@@ -43,7 +43,7 @@ feature 'Record Attempt' do
       select athlete.name_last_first, from: "Athlete"
       fill_in "Score", with: "Black 50"
 
-      click_on "Record Attempt"
+      click_on "Submit"
 
       expect(page).to have_content("Score is not a number")
     end
