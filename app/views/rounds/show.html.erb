@@ -11,13 +11,20 @@
 <br>
 <% if current_user == @round.competition.user %>
   <%= link_to "Add Route", new_round_route_path(@round), class: "button small" %>
+  &nbsp;&nbsp;
   <%= link_to "Edit Round", edit_round_path(@round), class: "button small" %>
+<% else %>
+  <%=
+    link_to "Create your own competition to add routes and record attempts",
+    new_competition_path, class: "button small"
+  %>
 <% end %>
 
 <h5>
   Routes:&nbsp;&nbsp;&nbsp;&nbsp;
   <% @round.routes.each do |route| %>
-    <%= link_to route.name, route_path(route) %>&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to route.name, route_path(route), class: "button tiny success" %>
+    &nbsp;&nbsp;
   <% end %>
 </h5>
 

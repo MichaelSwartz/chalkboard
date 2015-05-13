@@ -59,5 +59,6 @@
 <%= link_to "All Attempts", route_attempts_path(@route), class: "button small" %>
 
 <% if current_user == @route.round.competition.user %>
+  &nbsp;&nbsp;
   <%= link_to "Edit Route", edit_route_path(@route), class: "button small" %>
 <% end %>
