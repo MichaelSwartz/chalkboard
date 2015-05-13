@@ -24,14 +24,10 @@
 
 <div class="row">
   <div class="small-2 columns">
-    <h4><strong>Rounds</strong></h4>
-    <% if current_user == @competition.user %>
-      <%=
-        link_to "Add Round", new_competition_round_path(@competition),
-        class: "button small"
-      %>
-    <% end %>
     <ul class=side-nav>
+      <li>
+        <h4><strong>Rounds</strong></h4>
+      </li>
       <% @competition.rounds.each do |round| %>
         <li>
           <%= link_to round.name, round_path(round),
@@ -47,19 +43,10 @@
           <tr>
             <th>Standing</th>
             <th>Athlete</th>
-
-            <% if @competition.final_round.single_route? %>
-              <th>
-                <%= link_to @competition.final_round.routes.first.name,
-                  route_path(@competition.final_round.routes.first) %>
-                <br>Route
-              </th>
-            <% else %>
-              <th>Tops</th>
-              <th>Round Score</th>
-              <% @competition.final_round.routes.each do |route| %>
-                <th><%= link_to route.name, route_path(route) %><br>Route</th>
-              <% end %>
+            <th>Round Tops</th>
+            <th>Round Points</th>
+            <% @competition.final_round.routes.each do |route| %>
+              <th><%= link_to route.name, route_path(route) %><br>Route</th>
             <% end %>
 
             <% @competition.rounds.each do |round| %>
@@ -73,18 +60,14 @@
           <% @competition.leaderboard.each_with_index do |r_score, i| %>
             <tr>
               <td><%= i + 1 %></td>
-              <td><%= link_to r_score.athlete.name_last_first, athlete_path(r_score.athlete) %></td>
-              <% if @competition.final_round.single_route? %>
-                <td>
-                  <%= @competition.final_round.routes.first.score_display(r_score.athlete) %>
-                  (<%= @competition.final_round.routes.first.attempts_to_highpoint(r_score.athlete) %>)
-                </td>
-              <% else %>
-                <td><%= r_score.tops %></td>
-                <td><%= r_score.score %></td>
-                <% @competition.final_round.routes.each do |route| %>
-                  <td><%= route.athlete_rank(r_score.athlete) %></td>
-                <% end %>
+              <td><%=
+                link_to r_score.athlete.name_last_first,
+                athlete_path(r_score.athlete)
+              %></td>
+              <td><%= r_score.tops %></td>
+              <td><%= r_score.score %></td>
+              <% @competition.final_round.routes.each do |route| %>
+                <td><%= route.athlete_rank(r_score.athlete) %></td>
               <% end %>
 
               <% @competition.rounds.reverse_each do |round| %>
@@ -101,7 +84,12 @@
       </table>
 
       <p>
-        (T) indicates top (climber achieved maximum score)
+        Ranking points are shown for routes in the current round
+        <br>
+        (T) indicates a "Top" (climber achieved maximum score)
+        <br>
+        Previous round scores displayed as "Tops - Round Points"
+        <br>
       </p>
     <% else %>
       <h3>Start List</h3>
@@ -127,17 +115,21 @@
         </tbody>
       </table>
     <% end %>
+    <% if current_user == @competition.user %>
+      <%=
+        link_to "Register Athletes", competition_bibs_path(@competition),
+        class: "button small"
+      %>
+      &nbsp;&nbsp;
+      <%=
+        link_to "Add Round", new_competition_round_path(@competition),
+        class: "button small"
+      %>
+      &nbsp;&nbsp;
+      <%=
+        link_to "Edit Competition", edit_competition_path(@competition),
+        class: "button small"
+      %>
+    <% end %>
   </div>
 </div>
-
-<% if current_user == @competition.user %>
-  <%=
-    link_to "Register Athletes", competition_bibs_path(@competition),
-    class: "button small"
-  %>
-  &nbsp;&nbsp;
-  <%=
-    link_to "Edit Competition", edit_competition_path(@competition),
-    class: "button small"
-  %>
-<% end %>
